@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">GuoDong</string>
+    <string name="input_hint">输入场馆名字</string>
+</resources>

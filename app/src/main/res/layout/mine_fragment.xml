@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:orientation="vertical"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:background="#FFFFFF"
+              android:weightSum="1">
+    <LinearLayout
+        android:id="@+id/login_layout"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:background="@drawable/mine_bg"
+        android:layout_weight="0.4"
+        android:orientation="vertical">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/login_pic"
+            android:layout_gravity="center"
+            android:layout_marginTop="45dp"/>
+        <TextView
+            android:id="@+id/login_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="登录/注册"
+            android:layout_gravity="center"
+            android:padding="5dp"/>
+
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/collect_btn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="5dp"
+        android:paddingTop="10dp"
+        android:paddingBottom="10dp"
+        android:gravity="center_vertical"
+        android:paddingLeft="10dp"
+        android:background="#fffafafa"
+        android:text="我的收藏"/>
+
+    <TextView
+        android:id="@+id/more_btn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:layout_marginBottom="5dp"
+        android:paddingTop="10dp"
+        android:paddingBottom="10dp"
+        android:gravity="center_vertical"
+        android:paddingLeft="10dp"
+        android:background="#fffafafa"
+        android:text="更多"/>
+
+
+</LinearLayout>

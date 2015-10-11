@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+                android:padding="5dp">
+    <ImageView
+        android:id="@+id/gym_image"
+        android:layout_width="100dp"
+        android:layout_height="50dp"
+        android:layout_marginRight="5dp"
+        android:background="@color/highlighted_text_material_dark"/>
+    <TextView
+        android:id="@+id/gym_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="5dp"
+        android:layout_toRightOf="@+id/gym_image"
+        android:text="合肥奥体中心羽毛球馆"
+        android:textSize="16sp"/>
+    <TextView
+        android:id="@+id/price"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="5dp"
+        android:layout_toRightOf="@+id/gym_image"
+        android:text="￥ 25 起"
+        android:textColor="#FF7F00"
+        android:layout_alignBottom="@+id/gym_image"/>
+    <TextView
+        android:id="@+id/distance"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_alignBottom="@+id/gym_image"
+        android:padding="5dp"
+        android:layout_marginRight="10dp"
+        android:text="10.3 km"/>
+
+</RelativeLayout>

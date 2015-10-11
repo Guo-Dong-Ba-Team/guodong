@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:orientation="vertical"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent">
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:background="#99CCFF"
+        android:gravity="center"
+        android:text="搜索"
+        android:textSize="17sp"
+        android:textColor="#FFFFFF"/>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        >
+        <com.guodong.util.ClearEditText
+            android:id="@+id/input_gym_name"
+            android:layout_width="0dp"
+            android:layout_height="40dp"
+            android:layout_weight="1"
+            android:layout_margin="5dp"
+            android:layout_gravity="center"
+            android:background="@drawable/input_address"
+            android:hint="@string/input_hint"/>
+
+        <Button
+            android:id="@+id/search_gym_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
+            android:layout_gravity="center"
+            android:text="搜索"
+            android:layout_margin="5dp"/>
+
+    </LinearLayout>
+    <ListView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+    </ListView>
+
+
+</LinearLayout>
