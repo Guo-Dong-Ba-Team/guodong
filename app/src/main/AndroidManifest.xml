@@ -16,6 +16,10 @@
 
         </activity>
 
+        <activity android:name=".activity.Order_no" ></activity>
+        <activity android:name=".activity.Order_finish" ></activity>
+        <activity android:name=".activity.Order_cancel" ></activity>
+
 
     </application>
 

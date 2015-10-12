@@ -10,6 +10,7 @@ import android.widget.TextView;
 
 import com.guodong.R;
 import com.guodong.fragment.HomeFragment;
+import com.guodong.fragment.MainActivityFragment;
 import com.guodong.fragment.MineFragment;
 import com.guodong.fragment.OtherFragment;
 
@@ -22,7 +23,7 @@ public class MainActivity extends FragmentActivity {
     private String tabNames[] = {"主页", "订单", "动吧", "我的"};
     private int tabImages[] = {R.drawable.tab_btn_selector, R.drawable.tab_btn_selector,
             R.drawable.tab_btn_selector, R.drawable.tab_btn_selector};
-    private Class fragmentArray[] = {HomeFragment.class, OtherFragment.class, OtherFragment.class,
+    private Class fragmentArray[] = {HomeFragment.class, MainActivityFragment.class, OtherFragment.class,
             MineFragment.class};
 
     protected void onCreate(Bundle savedInsatnceState) {

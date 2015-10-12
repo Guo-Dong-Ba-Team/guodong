@@ -1,4 +1,10 @@
-<resources>
+﻿<resources>
     <string name="app_name">GuoDong</string>
     <string name="input_hint">输入场馆名字</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Settings</string>
+    <string name="order_no">未消费</string>
+    <string name="order_finish">已完成</string>
+    <string name="order_cancel">已取消</string>
+    <string name="order_name">订单</string>
 </resources>
