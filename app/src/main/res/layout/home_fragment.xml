@@ -20,7 +20,7 @@
             android:paddingLeft="5dp"
             android:background="#99CCFF"
             android:textColor="#000000"
-            android:text="北京"/>
+            android:text="合肥"/>
         <ImageView
             android:layout_width="20dp"
             android:layout_height="20dp"

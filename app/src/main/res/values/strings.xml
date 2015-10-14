@@ -7,4 +7,6 @@
     <string name="order_finish">已完成</string>
     <string name="order_cancel">已取消</string>
     <string name="order_name">订单</string>
+    <string name="title_activity_sport_venue_detail">SportVenueDetailActivity</string>
+    <string name="title_activity_gym_list">GymListActivity</string>
 </resources>

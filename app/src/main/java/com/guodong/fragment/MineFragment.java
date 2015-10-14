@@ -16,14 +16,21 @@ import com.guodong.R;
  */
 public class MineFragment extends Fragment implements View.OnClickListener {
     private View view;
+    private boolean isLogin = false;
+    private String userName;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.mine_fragment, container, false);
 
         LinearLayout loginLayout = (LinearLayout) view.findViewById(R.id.login_layout);
+        TextView loginText = (TextView) view.findViewById(R.id.login_text);
         TextView collectBtn = (TextView) view.findViewById(R.id.collect_btn);
         TextView moreBtn = (TextView) view.findViewById(R.id.more_btn);
+
+        if(isLogin) {
+            loginText.setText(userName);
+        }
 
         loginLayout.setOnClickListener(this);
         collectBtn.setOnClickListener(this);
@@ -33,15 +40,20 @@ public class MineFragment extends Fragment implements View.OnClickListener {
 
     @Override
     public void onClick(View v) {
-        switch (v.getId()) {
-            case R.id.login_layout:
-                Toast.makeText(getActivity(), "登录/注册...", Toast.LENGTH_SHORT).show();
-                break;
-            case R.id.collect_btn:
-                Toast.makeText(getActivity(), "我的收藏", Toast.LENGTH_SHORT).show();
-                break;
-            case R.id.more_btn:
-                break;
+        if (!isLogin) {
+            switch (v.getId()) {
+                case R.id.login_layout:
+                    Toast.makeText(getActivity(), "登录/注册...", Toast.LENGTH_SHORT).show();
+                    break;
+                case R.id.collect_btn:
+                    Toast.makeText(getActivity(), "我的收藏", Toast.LENGTH_SHORT).show();
+                    break;
+                case R.id.more_btn:
+                    break;
+            }
+        } else {
+
         }
     }
+
 }

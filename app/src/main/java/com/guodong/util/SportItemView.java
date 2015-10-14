@@ -7,9 +7,9 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.guodong.R;
+import com.guodong.activity.GymListActivity;
 
 /**
  * Created by yechy on 2015/9/19.
@@ -28,7 +28,7 @@ public class SportItemView extends LinearLayout{
         sportImage.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(getContext(), "启动" + sportText.getText().toString(), Toast.LENGTH_SHORT).show();
+                GymListActivity.actionStart(getContext(), sportText.getText().toString());
             }
         });
     }

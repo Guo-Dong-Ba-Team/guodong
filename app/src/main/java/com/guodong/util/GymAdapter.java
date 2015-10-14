@@ -37,7 +37,9 @@ public class GymAdapter extends ArrayAdapter<Gym> {
         TextView price = (TextView) view.findViewById(R.id.price);
         TextView distance = (TextView) view.findViewById(R.id.distance);
 
-        gymImage.setImageResource(gym.getGymImageId());
+        if(gymImage!= null) {
+            gymImage.setImageResource(gym.getGymImageId());
+        }
         gymName.setText(gym.getGymName());
         price.setText("￥" + gym.getPrice() + "起");
         distance.setText(gym.getDistance() + "km");

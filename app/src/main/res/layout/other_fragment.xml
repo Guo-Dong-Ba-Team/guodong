@@ -8,8 +8,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:text="TEST"
-        android:textSize="50sp"
+        android:text="敬请期待"
+        android:textSize="40sp"
         android:textColor="@color/highlighted_text_material_light"/>
 
 </LinearLayout>
