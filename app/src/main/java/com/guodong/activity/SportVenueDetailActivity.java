@@ -1,5 +1,7 @@
 package com.guodong.activity;
 
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
@@ -15,6 +17,12 @@ public class SportVenueDetailActivity extends AppCompatActivity
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.sport_venue_detail);
+    }
+
+    public static void actionStart(Context context, String gymName) {
+        Intent intent = new Intent(context, SportVenueDetailActivity.class);
+        intent.putExtra("category", gymName);
+        context.startActivity(intent);
     }
 
     @Override

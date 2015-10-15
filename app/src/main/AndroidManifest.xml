@@ -1,10 +1,32 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
           package="com.guodong">
 
+    <uses-permission android:name="android.permission.GET_ACCOUNTS" />
+    <uses-permission android:name="android.permission.USE_CREDENTIALS" />
+    <uses-permission android:name="android.permission.MANAGE_ACCOUNTS" />
+    <uses-permission android:name="android.permission.AUTHENTICATE_ACCOUNTS" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="com.android.launcher.permission.READ_SETTINGS" />
+
+    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.BROADCAST_STICKY" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+    <uses-permission android:name="android.permission.WRITE_SETTINGS"/>
+
+
     <application android:allowBackup="true"
                  android:label="@string/app_name"
                  android:icon="@mipmap/ic_launcher"
                  android:theme="@style/AppTheme">
+
+        <meta-data android:name="com.baidu.lbsapi.API_KEY"
+                   android:value="swKFCny3qqivTQIIL6DXYPGt" />
+
         <activity android:name=".activity.MainActivity"
                   android:label="GuoDong">
             <intent-filter>
@@ -21,6 +43,7 @@
         <activity android:name=".activity.Order_cancel" ></activity>
         <activity android:name=".activity.GymListActivity" ></activity>
         <activity android:name=".activity.SportVenueDetailActivity" ></activity>
+        <activity android:name=".activity.BaiduMapActivity" ></activity>
 
     </application>
 

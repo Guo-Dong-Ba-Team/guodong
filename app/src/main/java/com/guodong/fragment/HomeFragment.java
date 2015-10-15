@@ -1,6 +1,8 @@
 package com.guodong.fragment;
 
 import android.graphics.Color;
+import android.location.Location;
+import android.location.LocationManager;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -16,9 +18,12 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.guodong.R;
+import com.guodong.activity.BaiduMapActivity;
 import com.guodong.activity.SearchActivity;
+import com.guodong.activity.SportVenueDetailActivity;
 import com.guodong.model.Gym;
 import com.guodong.util.AdsAdapter;
 import com.guodong.util.GymAdapter;
@@ -40,10 +45,17 @@ public class HomeFragment extends Fragment {
     private ImageView dotImageView;
     private AtomicInteger what = new AtomicInteger(0);
     private boolean isContinue = true;
+    private LocationManager locationManager;
+    private String provider;
+    private double longitude;
+    private double latitude;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.home_fragment, container, false);
+        //获取当前位置
+        locateCurrentPosition();
+
         //初始化主页标题栏
         initTitle();
 
@@ -65,8 +77,7 @@ public class HomeFragment extends Fragment {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Gym gym = gymList.get(position);
-                //跳转到场馆页面
-
+                SportVenueDetailActivity.actionStart(getActivity(), gym.getGymName());
             }
         });
 
@@ -99,9 +110,27 @@ public class HomeFragment extends Fragment {
         openMap.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                    BaiduMapActivity.actionStart(getActivity(), longitude, latitude);
             }
         });
+    }
+
+    private void locateCurrentPosition() {
+        locationManager = (LocationManager) getActivity().getSystemService(getActivity().LOCATION_SERVICE);
+        List<String> providerList = locationManager.getProviders(true);
+        if (providerList.contains(LocationManager.GPS_PROVIDER)) {
+            provider = LocationManager.GPS_PROVIDER;
+        } else if (providerList.contains(LocationManager.NETWORK_PROVIDER)) {
+            provider = LocationManager.NETWORK_PROVIDER;
+        } else {
+            Toast.makeText(getActivity(), "没有可用的位置提供器",Toast.LENGTH_SHORT).show();
+            return;
+        }
+        Location myLocation = locationManager.getLastKnownLocation(provider);
+        if (myLocation != null) {
+            longitude = myLocation.getLongitude();
+            latitude = myLocation.getLatitude();
+        }
     }
 
     private void initViewPager() {
@@ -248,7 +277,5 @@ public void handleMessage(Message msg) {
         super.handleMessage(msg);
     }
 };
-
-
 
 }
