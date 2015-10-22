@@ -44,6 +44,8 @@
         <activity android:name=".activity.GymListActivity" ></activity>
         <activity android:name=".activity.SportVenueDetailActivity" ></activity>
         <activity android:name=".activity.BaiduMapActivity" ></activity>
+        <activity android:name=".activity.LoginActivity" ></activity>
+        <activity android:name=".activity.RegisterActivity" ></activity>
 
     </application>
 

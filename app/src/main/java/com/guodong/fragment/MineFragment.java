@@ -10,6 +10,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.guodong.R;
+import com.guodong.activity.LoginActivity;
 
 /**
  * Created by yechy on 2015/9/25.
@@ -44,6 +45,7 @@ public class MineFragment extends Fragment implements View.OnClickListener {
             switch (v.getId()) {
                 case R.id.login_layout:
                     Toast.makeText(getActivity(), "登录/注册...", Toast.LENGTH_SHORT).show();
+                    LoginActivity.actionStart(getActivity());
                     break;
                 case R.id.collect_btn:
                     Toast.makeText(getActivity(), "我的收藏", Toast.LENGTH_SHORT).show();

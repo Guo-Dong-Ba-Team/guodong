@@ -1,0 +1,76 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+    android:layout_height="match_parent" android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:orientation="vertical"
+    tools:context=".RegisterActivity">
+
+
+
+    <EditText
+        android:id="@+id/username"
+        android:layout_height="50dp"
+        android:layout_width="match_parent"
+        android:layout_marginTop="20dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginBottom="10dp"
+        android:inputType="text"
+        android:padding="5dp"
+        android:hint="@string/et_username"/>
+
+    <TextView
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:textColor="@color/gray_font"
+        android:textSize="16sp"
+        android:text="用于系统登录，由数字、字母组成，不能超过10位"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"/>
+    <EditText
+        android:id="@+id/pswd"
+        android:layout_height="50dp"
+        android:layout_width="match_parent"
+        android:layout_marginTop="20dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginBottom="10dp"
+        android:inputType="textPassword"
+        android:hint="@string/et_pswd"
+        android:padding="5dp"/>
+
+    <EditText
+        android:id="@+id/pswdconfirm"
+        android:layout_height="50dp"
+        android:layout_width="match_parent"
+        android:layout_marginTop="20dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginBottom="10dp"
+        android:inputType="textPassword"
+        android:hint="@string/et_pswdconfirm"
+        android:padding="5dp"/>
+    <EditText
+        android:id="@+id/et_phone"
+        android:layout_height="50dp"
+        android:layout_width="match_parent"
+        android:layout_marginTop="20dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:inputType="phone"
+        android:hint="@string/et_phone"
+        android:padding="5dp"/>
+    <Button
+        android:id="@+id/submit"
+        android:layout_height="60dp"
+        android:layout_width="match_parent"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:background="@drawable/login_btn"
+        android:textSize="18sp"
+        android:text="@string/register_submit"
+        android:onClick="register" />
+
+</LinearLayout>
