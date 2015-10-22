@@ -11,6 +11,7 @@ import android.widget.Toast;
 
 import com.guodong.R;
 import com.guodong.activity.LoginActivity;
+import com.guodong.activity.UserInfo;
 
 /**
  * Created by yechy on 2015/9/25.
@@ -44,11 +45,18 @@ public class MineFragment extends Fragment implements View.OnClickListener {
         if (!isLogin) {
             switch (v.getId()) {
                 case R.id.login_layout:
-                    Toast.makeText(getActivity(), "登录/注册...", Toast.LENGTH_SHORT).show();
-                    LoginActivity.actionStart(getActivity());
+                    if (!isLogin) {
+                        LoginActivity.actionStart(getActivity());
+                    } else {
+                        UserInfo.actionStart(getActivity(), userName);
+                    }
                     break;
                 case R.id.collect_btn:
-                    Toast.makeText(getActivity(), "我的收藏", Toast.LENGTH_SHORT).show();
+                    if (isLogin) {
+                        Toast.makeText(getActivity(), "我的收藏", Toast.LENGTH_SHORT).show();
+                    } else {
+                        LoginActivity.actionStart(getActivity());
+                    }
                     break;
                 case R.id.more_btn:
                     break;
@@ -56,6 +64,10 @@ public class MineFragment extends Fragment implements View.OnClickListener {
         } else {
 
         }
+    }
+
+    private void checkIfLogin() {
+
     }
 
 }

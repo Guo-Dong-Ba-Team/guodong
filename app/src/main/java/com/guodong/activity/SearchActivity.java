@@ -15,7 +15,7 @@ import com.guodong.util.ClearEditText;
  * Created by yechy on 2015/9/25.
  */
 public class SearchActivity extends Activity {
-    ClearEditText inputGymText;
+    private ClearEditText inputGymText;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
