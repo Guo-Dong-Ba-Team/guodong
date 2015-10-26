@@ -80,7 +80,8 @@ public class RegisterActivity extends Activity {
     public void  registerByGet(String regisname, String password, String regisphone ) {
         try
         {
-            String spec = "http://114.214.167.18:8080/LoginUser/register.do"+"?username="+regisname +"&password="+password  + "&phone="+regisphone;
+            //genymotion 模拟器可以通过10.0.3.2连接到电脑localhost上
+            String spec = "http://10.0.3.2:8080/register"+"?username="+regisname +"&password="+password  + "&phone="+regisphone;
             // 根据地址创建URL对象(网络访问的url)
             URL url = new URL(spec);
 
@@ -97,8 +98,44 @@ public class RegisterActivity extends Activity {
             System.out.println(urlConnection.getResponseCode());
             if (urlConnection.getResponseCode() == 200)
             {
-                Intent intent=new Intent(mContext, LoginActivity.class);
-                startActivity(intent);
+                 // 获取响应的输入流对象
+                InputStream is = urlConnection.getInputStream();
+
+                // 创建字节输出流对象
+                ByteArrayOutputStream os = new ByteArrayOutputStream();
+                // 定义读取的长度
+                int len = 0;
+                // 定义缓冲区
+                byte buffer[] = new byte[1024];
+                // 按照缓冲区的大小，循环读取
+                while ((len = is.read(buffer)) != -1) {
+                    // 根据读取的长度写入到os对象中
+                    os.write(buffer, 0, len);
+                }
+                // 释放资源
+                is.close();
+                os.close();
+                // 返回字符串
+                String result = new String(os.toByteArray());
+                System.out.println("***************" + result
+                        + "******************");
+
+                if (result == "0")
+                {
+                    //注册成功，跳转到登录页面
+                    Intent intent=new Intent(mContext, LoginActivity.class);
+                    startActivity(intent);
+                }
+                else if (result == "1")
+                {
+                    //这个手机号已经被注册，弹出提示：去登录或忘记密码
+
+                }
+                else if (result == "2")
+                {
+                    //这个昵称已经被使用，弹出提示：修改昵称
+
+                }
             }
 
 
