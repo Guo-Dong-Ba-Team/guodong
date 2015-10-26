@@ -89,8 +89,10 @@ public class LoginActivity extends Activity {
         try {
 
             System.out.println("======================================================");
-
-            String spec = "http://114.214.167.18:8080/LoginUser/login.do" + "?phone="+loginPhone+"&password="+userPass;
+            
+            //genymotion 模拟器可以通过10.0.3.2连接到电脑localhost上
+            String spec = "http://10.0.3.2:8080/login" + "?phone="+loginPhone+"&password="+userPass;
+         
             // 根据地址创建URL对象(网络访问的url)
             URL url = new URL(spec);
             // url.openConnection()打开网络链接
@@ -127,7 +129,7 @@ public class LoginActivity extends Activity {
                 System.out.println("***************" + result
                         + "******************");
 
-                if(result == "1") {
+                if(result == "0") {
 
                     //保存登陆的用户信息
                     globalData.setIsLogin(true);
@@ -143,6 +145,16 @@ public class LoginActivity extends Activity {
                     editor.commit();
 
                     MainActivity.actionStart(LoginActivity.this, 3);
+
+                }
+                else if (result == "1")
+                {
+                    //这个手机号还注册
+
+                }
+                else if (result == "2")
+                {
+                    //手机号或密码不正确
 
                 }
 
