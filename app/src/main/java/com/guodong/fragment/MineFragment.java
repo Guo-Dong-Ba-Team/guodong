@@ -12,14 +12,14 @@ import android.widget.Toast;
 import com.guodong.R;
 import com.guodong.activity.LoginActivity;
 import com.guodong.activity.UserInfo;
+import com.guodong.model.GlobalData;
 
 /**
  * Created by yechy on 2015/9/25.
  */
 public class MineFragment extends Fragment implements View.OnClickListener {
     private View view;
-    private boolean isLogin = false;
-    private String userName;
+    GlobalData globalData;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -30,8 +30,9 @@ public class MineFragment extends Fragment implements View.OnClickListener {
         TextView collectBtn = (TextView) view.findViewById(R.id.collect_btn);
         TextView moreBtn = (TextView) view.findViewById(R.id.more_btn);
 
-        if(isLogin) {
-            loginText.setText(userName);
+        globalData = (GlobalData) getActivity().getApplicationContext();
+        if(globalData.getIsLogin()) {
+            loginText.setText(globalData.getLoginAccount());
         }
 
         loginLayout.setOnClickListener(this);
@@ -42,17 +43,16 @@ public class MineFragment extends Fragment implements View.OnClickListener {
 
     @Override
     public void onClick(View v) {
-        if (!isLogin) {
             switch (v.getId()) {
                 case R.id.login_layout:
-                    if (!isLogin) {
+                    if (!globalData.getIsLogin()) {
                         LoginActivity.actionStart(getActivity());
                     } else {
-                        UserInfo.actionStart(getActivity(), userName);
+                        UserInfo.actionStart(getActivity(), globalData.getLoginAccount());
                     }
                     break;
                 case R.id.collect_btn:
-                    if (isLogin) {
+                    if (globalData.getIsLogin()) {
                         Toast.makeText(getActivity(), "我的收藏", Toast.LENGTH_SHORT).show();
                     } else {
                         LoginActivity.actionStart(getActivity());
@@ -61,13 +61,6 @@ public class MineFragment extends Fragment implements View.OnClickListener {
                 case R.id.more_btn:
                     break;
             }
-        } else {
-
-        }
-    }
-
-    private void checkIfLogin() {
-
     }
 
 }

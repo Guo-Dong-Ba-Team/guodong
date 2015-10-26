@@ -7,6 +7,7 @@ import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -15,6 +16,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.guodong.R;
+import com.guodong.model.GlobalData;
 
 import java.io.ByteArrayOutputStream;
 import java.io.InputStream;
@@ -30,26 +32,39 @@ public class LoginActivity extends Activity {
     private CheckBox rememberPass;
     private ProgressDialog Dialog;
     private Context mContext;
+    private GlobalData globalData;
+    private SharedPreferences pref;
+    private SharedPreferences.Editor editor;
 
+    private String phone;
+    private String password;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+        pref = getSharedPreferences("loginID", MODE_PRIVATE);
         mContext = this;
         bt_login = (Button) findViewById(R.id.login);
         bt_register = (Button) findViewById(R.id.register);
         loginPhone = (EditText) findViewById(R.id.loginPhone);
         et_password = (EditText) findViewById(R.id.password);
         rememberPass = (CheckBox) findViewById(R.id.remember_pass);
+        globalData = (GlobalData) getApplicationContext();
+
+        phone = pref.getString("account","");
+        if (phone != "") {
+            loginPhone.setText(phone);
+        }
     }
     public void registerInfo(View v){
         Intent intent=new Intent(mContext, RegisterActivity.class);
         startActivity(intent);
     }
     public void login(View v){
-        final String password = et_password.getText().toString();
-        final String phone = loginPhone.getText().toString();
+
+        password = et_password.getText().toString();
+        phone = loginPhone.getText().toString();
 
         if ("".equals(phone.trim()) || "".equals(password.trim())) {
             Toast.makeText(mContext, "手机号或密码为空...", Toast.LENGTH_SHORT).show();
@@ -112,11 +127,24 @@ public class LoginActivity extends Activity {
                 System.out.println("***************" + result
                         + "******************");
 
-                if(result == "1")
-//				intent=new Intent(LoginActivity.this,linshi.class);
-//				startActivity(intent)
-                    ;
+                if(result == "1") {
 
+                    //保存登陆的用户信息
+                    globalData.setIsLogin(true);
+                    globalData.setLoginAccount(loginPhone);
+                    globalData.setPassword(userPass);
+                    editor = pref.edit();
+                    editor.clear();
+                    editor.commit();
+                    editor.putBoolean("islogin", true);
+                    editor.putString("account",loginPhone);
+                    editor.putString("password",userPass);
+
+                    editor.commit();
+
+                    MainActivity.actionStart(LoginActivity.this, 3);
+
+                }
 
             } else {
                 System.out.println("------------------链接失败-----------------");

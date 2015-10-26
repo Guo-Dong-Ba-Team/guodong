@@ -1,5 +1,7 @@
 package com.guodong.activity;
 
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentTabHost;
@@ -10,8 +12,8 @@ import android.widget.TextView;
 
 import com.guodong.R;
 import com.guodong.fragment.HomeFragment;
-import com.guodong.fragment.MainActivityFragment;
 import com.guodong.fragment.MineFragment;
+import com.guodong.fragment.OrderFragment;
 import com.guodong.fragment.OtherFragment;
 
 /**
@@ -23,12 +25,17 @@ public class MainActivity extends FragmentActivity {
     private String tabNames[] = {"主页", "订单", "动吧", "我的"};
     private int tabImages[] = {R.drawable.tab_btn_selector, R.drawable.tab_btn_selector,
             R.drawable.tab_btn_selector, R.drawable.tab_btn_selector};
-    private Class fragmentArray[] = {HomeFragment.class, MainActivityFragment.class, OtherFragment.class,
+    private Class fragmentArray[] = {HomeFragment.class, OrderFragment.class, OtherFragment.class,
             MineFragment.class};
+
+    private int tabIndex;
 
     protected void onCreate(Bundle savedInsatnceState) {
         super.onCreate(savedInsatnceState);
         setContentView(R.layout.activity_main);
+
+        Intent intent = getIntent();
+        tabIndex = intent.getIntExtra("tabindex",0);
 
         initView();
     }
@@ -44,6 +51,8 @@ public class MainActivity extends FragmentActivity {
             //tabHost.getTabWidget().getChildAt(i).setBackgroundColor();
 
         }
+
+        tabHost.setCurrentTab(tabIndex);
     }
 
     private View getView(int i) {
@@ -53,5 +62,11 @@ public class MainActivity extends FragmentActivity {
         imageView.setImageResource(tabImages[i]);
         textView.setText(tabNames[i]);
         return  myView;
+    }
+
+    public static void actionStart(Context context, int tabIndex) {
+        Intent intent = new Intent(context, MainActivity.class);
+        intent.putExtra("tabindex", tabIndex);
+        context.startActivity(intent);
     }
 }
