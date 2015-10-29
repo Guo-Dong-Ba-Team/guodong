@@ -1,21 +1,23 @@
 package com.guodong.activity;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.Window;
 
 import com.guodong.R;
 
-public class SportVenueDetailActivity extends AppCompatActivity
+public class SportVenueDetailActivity extends Activity
 {
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
+        requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.sport_venue_detail);
     }
 

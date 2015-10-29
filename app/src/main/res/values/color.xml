@@ -6,4 +6,5 @@
     <color name="blue">#499BF7</color>
     <color name="gray_font">#818181</color>
     <color name="red">#FF0000</color>
+    <color name="ads_gray">#ffe3e3e3</color>
 </resources>

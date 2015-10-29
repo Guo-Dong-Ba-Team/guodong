@@ -3,6 +3,15 @@
               android:orientation="vertical"
               android:layout_width="match_parent"
               android:layout_height="match_parent">
+    <TextView
+        android:id="@+id/sport_name"
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:background="#99CCFF"
+        android:gravity="center"
+        android:textSize="17sp"
+        android:text="场馆详情"
+        android:textColor="#FFFFFF"/>
 
     <LinearLayout
         android:orientation="horizontal"

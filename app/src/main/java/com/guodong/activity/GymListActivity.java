@@ -1,14 +1,14 @@
 package com.guodong.activity;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
+import android.view.Window;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import com.guodong.R;
 import com.guodong.model.Gym;
@@ -17,7 +17,7 @@ import com.guodong.util.GymAdapter;
 import java.util.ArrayList;
 import java.util.List;
 
-public class GymListActivity extends AppCompatActivity
+public class GymListActivity extends Activity
 {
     private List<Gym> gymList = new ArrayList<Gym>();
 
@@ -25,9 +25,15 @@ public class GymListActivity extends AppCompatActivity
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
+        requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.sport_venue_lists);
 
         initGyms();
+
+        TextView sportNameText = (TextView) findViewById(R.id.sport_name);
+        Intent intent = getIntent();
+        String category = intent.getStringExtra("category");
+        sportNameText.setText(category);
 
         GymAdapter gymAdapter = new GymAdapter(GymListActivity.this, R.layout.sport_venue_lists_item, gymList);
 
@@ -70,15 +76,15 @@ public class GymListActivity extends AppCompatActivity
         context.startActivity(intent);
     }
 
-    @Override
+/*    @Override
     public boolean onCreateOptionsMenu(Menu menu)
     {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_gym_list, menu);
         return true;
-    }
+    }*/
 
-    @Override
+/*    @Override
     public boolean onOptionsItemSelected(MenuItem item)
     {
         // Handle action bar item clicks here. The action bar will
@@ -93,5 +99,5 @@ public class GymListActivity extends AppCompatActivity
         }
 
         return super.onOptionsItemSelected(item);
-    }
+    }*/
 }

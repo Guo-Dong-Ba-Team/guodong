@@ -11,6 +11,7 @@ public class GlobalData extends Application {
     private String loginAccount;
     private String password;
 
+
     @Override
     public void onCreate() {
 

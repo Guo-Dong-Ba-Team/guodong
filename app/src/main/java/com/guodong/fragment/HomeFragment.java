@@ -1,8 +1,11 @@
 package com.guodong.fragment;
 
+import android.content.Context;
 import android.graphics.Color;
 import android.location.Location;
 import android.location.LocationManager;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -20,6 +23,9 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.android.volley.RequestQueue;
+import com.android.volley.toolbox.NetworkImageView;
+import com.android.volley.toolbox.Volley;
 import com.guodong.R;
 import com.guodong.activity.BaiduMapActivity;
 import com.guodong.activity.SearchActivity;
@@ -49,10 +55,20 @@ public class HomeFragment extends Fragment {
     private String provider;
     private double longitude;
     private double latitude;
+    private RequestQueue requestQueue;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.home_fragment, container, false);
+        //判断网络是否连接
+        ConnectivityManager connectivityManager = (ConnectivityManager)
+                getActivity().getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo networkInfo = connectivityManager.getActiveNetworkInfo();
+        if (networkInfo == null || !networkInfo.isAvailable()) {
+            Toast.makeText(getActivity(), "网络连接不可用", Toast.LENGTH_LONG).show();
+        }
+        requestQueue = Volley.newRequestQueue(getActivity());
+
         //获取当前位置
         locateCurrentPosition();
 
@@ -139,15 +155,20 @@ public class HomeFragment extends Fragment {
 
         //创建广告页
         List<View> adsImageList = new ArrayList<View>();
-        ImageView ads1 = new ImageView(getActivity());
-        ads1.setImageResource(R.drawable.iss);
+        NetworkImageView ads1 = new NetworkImageView(getActivity());
+
+        ads1.setBackgroundColor(Color.TRANSPARENT);
         adsImageList.add(ads1);
-        ImageView ads2 = new ImageView(getActivity());
-        ads2.setBackgroundColor(Color.RED);
+        NetworkImageView ads2 = new NetworkImageView(getActivity());
+        ads2.setBackgroundColor(Color.TRANSPARENT);
         adsImageList.add(ads2);
-        ImageView ads3 = new ImageView(getActivity());
-        ads3.setBackgroundColor(Color.BLUE);
+        NetworkImageView ads3 = new NetworkImageView(getActivity());
+        ads3.setBackgroundColor(Color.TRANSPARENT);
         adsImageList.add(ads3);
+        //从服务器加载广告图片并显示
+
+        //Traffic.showNetworkImage(getActivity(),requestQueue, adUrl, ads1);
+
         //对dotImageViews进行填充
         dotImageViews = new ImageView[adsImageList.size()];
         //导航圆点
@@ -232,13 +253,13 @@ public class HomeFragment extends Fragment {
         SportItemView sportView4 = (SportItemView) headerView.findViewById(R.id.sport4);
 
         sportView1.setSportImage(R.drawable.sport);
-        sportView1.setSportText("羽毛球");
+        sportView1.setSportText("羽毛球场");
 
         sportView2.setSportImage(R.drawable.sport);
-        sportView2.setSportText("乒乓球");
+        sportView2.setSportText("乒乓球馆");
 
         sportView3.setSportImage(R.drawable.sport);
-        sportView3.setSportText("网球");
+        sportView3.setSportText("网球场");
 
         sportView4.setSportImage(R.drawable.sport);
         sportView4.setSportText("健身馆");
@@ -249,6 +270,8 @@ public class HomeFragment extends Fragment {
 
     private void initGymData() {
         gymList.clear();
+        //下载场馆列表数据
+        //Traffic.sendGymListRequest()
         for (int i = 0; i < 8; i++) {
             Gym gym1 = new Gym();
             gymList.add(gym1);
