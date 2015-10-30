@@ -1,0 +1,20 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+             xmlns:tools="http://schemas.android.com/tools"
+             android:layout_width="match_parent"
+             android:layout_height="match_parent"
+             tools:context="com.example.android.orderpositontest.GymSelectFragment"
+    >
+
+    <GridView
+        android:id="@+id/order_positon_gridview"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:numColumns="7"
+        android:verticalSpacing="2dip"
+        android:horizontalSpacing="2dip"
+        android:layout_gravity="center"
+        >
+
+    </GridView>
+
+</LinearLayout>

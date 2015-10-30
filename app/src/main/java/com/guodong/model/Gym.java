@@ -5,7 +5,7 @@ package com.guodong.model;
  */
 public class Gym {
     private String gymName;
-    private int price;
+    private float price;
     private float distance;
     private String gymImageUrl;
 
@@ -13,13 +13,13 @@ public class Gym {
 
     }
 
-    public Gym(String gymName, int price, float distance) {
+    public Gym(String gymName, float price, float distance) {
         this.gymName = gymName;
         this.price = price;
         this.distance = distance;
     }
 
-    public Gym(String gymName, int price, float distance, String gymImageUrl) {
+    public Gym(String gymName, float price, float distance, String gymImageUrl) {
         this.gymName = gymName;
         this.price = price;
         this.distance = distance;
@@ -34,7 +34,7 @@ public class Gym {
         return distance;
     }
 
-    public int getPrice() {
+    public float getPrice() {
         return price;
     }
 

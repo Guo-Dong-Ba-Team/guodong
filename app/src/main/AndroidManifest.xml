@@ -48,6 +48,7 @@
         <activity android:name=".activity.LoginActivity" ></activity>
         <activity android:name=".activity.RegisterActivity" ></activity>
         <activity android:name=".activity.UserInfo" ></activity>
+        <activity android:name=".activity.GymSelectActivity" ></activity>
 
     </application>
 

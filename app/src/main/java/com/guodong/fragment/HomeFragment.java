@@ -30,6 +30,7 @@ import com.guodong.R;
 import com.guodong.activity.BaiduMapActivity;
 import com.guodong.activity.SearchActivity;
 import com.guodong.activity.SportVenueDetailActivity;
+import com.guodong.model.GlobalData;
 import com.guodong.model.Gym;
 import com.guodong.util.AdsAdapter;
 import com.guodong.util.GymAdapter;
@@ -56,6 +57,7 @@ public class HomeFragment extends Fragment {
     private double longitude;
     private double latitude;
     private RequestQueue requestQueue;
+    private GlobalData globalData;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -146,6 +148,10 @@ public class HomeFragment extends Fragment {
         if (myLocation != null) {
             longitude = myLocation.getLongitude();
             latitude = myLocation.getLatitude();
+            //经纬度保存到全局变量中
+            globalData = (GlobalData) getActivity().getApplicationContext();
+            globalData.setMyLongitude(longitude);
+            globalData.setMyLatitude(latitude);
         }
     }
 
