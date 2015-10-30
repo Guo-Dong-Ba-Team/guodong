@@ -9,7 +9,7 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="3dip"
         android:layout_marginBottom="10dip"
-        android:textSize="25dip"
+        android:textSize="18dip"
         android:text="会员月卡"
         />
 
@@ -24,7 +24,6 @@
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
             android:layout_centerVertical="true"
-            android:textColor="#fa0"
             android:textSize="15dip"
             android:text="12.3￥"
             />
@@ -36,16 +35,16 @@
             android:layout_toRightOf="@+id/text1"
             android:layout_centerVertical="true"
             android:layout_marginLeft="5dp"
-            android:textColor="#fa0"
             android:textSize="15dip"
-            android:text="优惠"
+            android:text="8折"
             />
         <Button
-            android:id="@+id/button1"
+            android:id="@+id/btn_vip_buy"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
-
+            android:background="#0f0"
+            android:textSize="18dp"
             android:text="在线购买"
             />
     </RelativeLayout>

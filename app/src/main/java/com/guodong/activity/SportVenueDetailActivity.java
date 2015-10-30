@@ -6,7 +6,9 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.view.Window;
+import android.widget.Button;
 
 import com.guodong.R;
 
@@ -19,6 +21,20 @@ public class SportVenueDetailActivity extends Activity
         super.onCreate(savedInstanceState);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.sport_venue_detail);
+
+        Button btnOrderNow = (Button) findViewById(R.id.btn_order_now);
+        Button btnVipBuy = (Button) findViewById(R.id.btn_vip_buy);
+
+        btnOrderNow.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View v)
+            {
+                Intent intent = new Intent(SportVenueDetailActivity.this, GymSelectActivity.class);
+                startActivity(intent);
+            }
+        });
+
     }
 
     public static void actionStart(Context context, String gymName) {

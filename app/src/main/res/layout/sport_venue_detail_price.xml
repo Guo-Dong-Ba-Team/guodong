@@ -4,12 +4,12 @@
               android:layout_height="wrap_content"
               android:orientation="vertical">
 
-    <TextView
+        <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="3dip"
         android:layout_marginBottom="10dip"
-        android:textSize="25dip"
+        android:textSize="18dip"
         android:text="单次体验"
         />
 
@@ -24,8 +24,7 @@
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
             android:layout_centerVertical="true"
-            android:textColor="#fa0"
-            android:textSize="15dip"
+            android:textSize="12dip"
             android:text="20￥"
             />
 
@@ -43,12 +42,13 @@
             />
             -->
         <Button
-            android:id="@+id/button1"
+            android:id="@+id/btn_order_now"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
-
-            android:text="查看详情"
+            android:background="#0f0"
+            android:textSize="18dp"
+            android:text="立即预订"
             />
     </RelativeLayout>
 

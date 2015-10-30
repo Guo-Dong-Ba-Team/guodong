@@ -1,81 +1,107 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              android:orientation="vertical"
               android:layout_width="match_parent"
-              android:layout_height="match_parent">
+              android:layout_height="match_parent"
+              android:orientation="vertical">
+
     <TextView
         android:id="@+id/sport_name"
         android:layout_width="match_parent"
         android:layout_height="45dp"
         android:background="#99CCFF"
         android:gravity="center"
-        android:textSize="17sp"
         android:text="场馆详情"
-        android:textColor="#FFFFFF"/>
+        android:textColor="#FFFFFF"
+        android:textSize="17sp"/>
 
     <LinearLayout
-        android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="0dip"
         android:layout_weight="6"
+        android:orientation="horizontal"
         >
-
-        <LinearLayout
-            android:orientation="vertical"
-            android:layout_width="0dip"
-            android:layout_weight="3"
-            android:layout_height="wrap_content">
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="5dip"
-                android:textSize="30dip"
-                android:text="合肥奥体中心健身馆"/>
-
-            <View android:layout_width="match_parent"
-                  android:layout_height="1dip"
-                  android:background="#eaeaea"
-                  android:layout_marginLeft="10dip"
-                  android:layout_marginRight="10dip"
-                  android:layout_marginTop="10dip"
-                  android:layout_marginBottom="10dip"/>
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="5dip"
-                android:textSize="20dip"
-                android:text="营业时间: 9:30-22:30"/>
-        </LinearLayout>
 
         <com.android.volley.toolbox.NetworkImageView
             android:layout_width="0dip"
-            android:layout_weight="1"
-            android:layout_height="match_parent"
-            android:background="@drawable/sport_venue_1"/>
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="5dp"
+            android:layout_marginTop="5dp"
+            android:layout_weight="2"
+            android:background="@drawable/gym2"/>
+
+        <LinearLayout
+            android:layout_width="0dip"
+            android:layout_height="wrap_content"
+            android:layout_weight="3"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_marginLeft="5dip"
+                android:layout_weight="6"
+                android:text="合肥奥体中心健身馆"
+                android:textColor="#0cf"
+                android:textSize="20dip"/>
+
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_marginLeft="5dip"
+                android:layout_marginTop="20dp"
+                android:layout_weight="6"
+                android:text="营业时间: 9:30-22:30"
+                android:textSize="12dip"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_marginLeft="5dip"
+                android:layout_marginTop="20dp"
+                android:layout_weight="6"
+                android:text="用户评分："
+                android:textSize="12dip"/>
+
+
+            <RatingBar
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="6"
+                android:isIndicator="true"
+                android:numStars="5"
+                android:rating="4"
+                android:progressTint="#ff8f00"
+                android:stepSize="1"
+                />
+        </LinearLayout>
+
+
     </LinearLayout>
-    <include
-        android:layout_width="match_parent"
-        android:layout_height="0dip"
-        android:layout_weight="3"
-        layout="@layout/sport_venue_detail_price"/>
 
     <include
+        layout="@layout/sport_venue_detail_price"
         android:layout_width="match_parent"
         android:layout_height="0dip"
-        android:layout_weight="3"
-        layout="@layout/sport_venue_detail_vip"/>
+        android:layout_weight="3"/>
 
-    <TextView
+    <include
+        layout="@layout/sport_venue_detail_vip"
         android:layout_width="match_parent"
         android:layout_height="0dip"
-        android:layout_weight="3"
-        android:text="运动设施"/>
+        android:layout_weight="3"/>
 
-    <TextView
+    <include
+        layout="@layout/sport_venue_hardware_detail"
         android:layout_width="match_parent"
-        android:layout_height="0dip"
+        android:layout_height="0dp"
+        android:layout_weight="3"
+        />
+
+    <include
+        layout="@layout/sport_venue_detail_service"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
         android:layout_weight="2"
-        android:text="服务设施"/>
+        />
 </LinearLayout>
