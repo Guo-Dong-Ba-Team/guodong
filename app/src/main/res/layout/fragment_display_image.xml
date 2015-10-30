@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:orientation="vertical"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+    android:background="#000000">
+
+    <com.android.volley.toolbox.NetworkImageView
+        android:id="@+id/image_netview"
+        android:layout_width="match_parent"
+        android:layout_height="250dp"
+        android:layout_marginTop="130dp"/>
+
+    <TextView
+        android:id="@+id/image_intro"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:gravity="left"
+        android:textSize="20sp"
+        android:text="胶地板"
+        android:padding="10dp"
+        android:textColor="@color/ads_gray"/>
+
+</RelativeLayout>
