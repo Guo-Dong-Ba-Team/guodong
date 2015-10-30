@@ -85,9 +85,6 @@ public class JsonParse
 
         //Define the returned ArrayList
         ArrayList<GymDetail> gymDetails= new ArrayList<>();
-        int gymMainImageId = 0;
-        ArrayList<Integer> detailImageIds = null;
-
 
         for (int i = 0; i < infoArray.length(); i++)
         {
@@ -104,7 +101,7 @@ public class JsonParse
                 JSONObject everyDetailImage = detailImageArray.getJSONObject(j);
                 detaiImageUrl[j] = everyDetailImage.getString(GYM_MAIN_IMAGE);
             }
-            float signle_rice = everyGymDetailJson.getInt(GYM_SINGLE_PRICE);
+            float signle_price = everyGymDetailJson.getInt(GYM_SINGLE_PRICE);
             float vip_price = everyGymDetailJson.getInt(GYM_VIP_PRICE);
             float discount = (float) everyGymDetailJson.getDouble(GYM_DISCOUNT);
             String address_city = everyGymDetailJson.getString(GYM_ADDRESS_CITY);
@@ -115,11 +112,8 @@ public class JsonParse
             String service = everyGymDetailJson.getString(GYM_SERVICE);
             int star_level = everyGymDetailJson.getInt(GYM_STAR_LEVEL);
 
-            //图片保存在本地后，获得detailImageIds;
 
-            //获得经纬度后，由百度地图计算出距离
-            int distance = 0;
-            gymDetails.add(new GymDetail(name, distance, detaiImageUrl, signle_rice, vip_price, discount,
+            gymDetails.add(new GymDetail(name, detaiImageUrl, signle_price, vip_price, discount,
                     address_city,address_detail, longitude, latitude, phone_num, open_time, hardware, service, star_level));
         }
 

@@ -6,7 +6,6 @@ package com.guodong.model;
 public class GymDetail
 {
     private String name;
-    private float distance;
     private String[] gymImageUrl;
     private float single_price;
     private float vip_price;
@@ -21,12 +20,11 @@ public class GymDetail
     private String service;
     private int star_level;
 
-    public GymDetail(String name, float distance, String[] gymImageUrl, float single_price, float vip_price,
+    public GymDetail(String name, String[] gymImageUrl, float single_price, float vip_price,
                      float discount, String address_city, String address_detail, double longitude, double latitude,
                      String phone_num, String open_time, String hardware, String service, int star_level)
     {
         this.name = name;
-        this.distance = distance;
         this.gymImageUrl = gymImageUrl;
         this.single_price = single_price;
         this.vip_price = vip_price;
@@ -44,10 +42,6 @@ public class GymDetail
 
     public String getName() {
         return name;
-    }
-
-    public float getDistance() {
-        return distance;
     }
 
     public String[] getGymImageUrl() {
