@@ -55,7 +55,7 @@ public class Traffic {
         }
     }
 
-    public static String sendGymListRequest(String url, RequestQueue requestQueue) {
+    public static String sendRequest(String url, RequestQueue requestQueue) {
 
         final StringBuilder result = new StringBuilder();
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(url, null,

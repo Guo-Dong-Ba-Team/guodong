@@ -34,7 +34,11 @@ import com.guodong.model.GlobalData;
 import com.guodong.model.Gym;
 import com.guodong.util.AdsAdapter;
 import com.guodong.util.GymAdapter;
+import com.guodong.util.JsonParse;
 import com.guodong.util.SportItemView;
+import com.guodong.util.Traffic;
+
+import org.json.JSONException;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -277,10 +281,12 @@ public class HomeFragment extends Fragment {
     private void initGymData() {
         gymList.clear();
         //下载场馆列表数据
-        //Traffic.sendGymListRequest()
-        for (int i = 0; i < 8; i++) {
-            Gym gym1 = new Gym();
-            gymList.add(gym1);
+        StringBuilder gymListUrl = new StringBuilder();
+        String response = Traffic.sendRequest(gymListUrl.toString(), requestQueue);
+        try {
+            gymList = JsonParse.ParseBriefGymInfo(response);
+        } catch (JSONException e) {
+            e.printStackTrace();
         }
 
     }

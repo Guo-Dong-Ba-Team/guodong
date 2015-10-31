@@ -9,6 +9,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.List;
 
 
 /**
@@ -22,8 +23,8 @@ public class JsonParse
     final static String GYM_DETAIL = "gym_detail";
     final static String GYM_NAME = "name";
     final static String GYM_DISTANCE = "distance";
-    final static String GYM_MAIN_IMAGE = "main_image";
-    final static String GYM_DETAIL_IMAGE = "detail_image";
+    final static String GYM_IMAGE_URL = "gym_image_url";
+    final static String GYM_IMAGE_URL_ARRAY = "gym_image_url_array";
     final static String GYM_SINGLE_PRICE = "single_price";
     final static String GYM_VIP_PRICE = "vip_price";
     final static String GYM_DISCOUNT = "discount";
@@ -41,7 +42,7 @@ public class JsonParse
 
     //Json parsing function for brief information of gyms
     //Return format: ArrayList of GymBrief objects
-    public static ArrayList<Gym> ParseBriefGymInfo(String infoData)
+    public static List<Gym> ParseBriefGymInfo(String infoData)
             throws JSONException
     {
         JSONObject GymBriefInfoJson = new JSONObject(infoData);
@@ -58,7 +59,7 @@ public class JsonParse
             String name = everyGymBriefJson.getString(GYM_NAME);
             double longitude = (double) everyGymBriefJson.getDouble(GYM_LONGITUDE);
             double latitude = (double) everyGymBriefJson.getDouble(GYM_LATITUDE);
-            String mainImageUrl = everyGymBriefJson.getString(GYM_MAIN_IMAGE);
+            String mainImageUrl = everyGymBriefJson.getString(GYM_IMAGE_URL);
             float signle_price =  (float) everyGymBriefJson.getDouble(GYM_SINGLE_PRICE);
             float vip_price = (float) everyGymBriefJson.getDouble(GYM_VIP_PRICE);
             float discount = (float) everyGymBriefJson.getDouble(GYM_DISCOUNT);
@@ -77,47 +78,38 @@ public class JsonParse
     }
     //Json parsing function for brief information of gyms
     //Return format: ArrayList of GymBrief objects
-    private static ArrayList<GymDetail> ParseDetailGymInfo(String infoData)
+    public static GymDetail ParseDetailGymInfo(String infoData)
             throws JSONException
     {
-        JSONObject GymDetailfInfoJson = new JSONObject(infoData);
-        JSONArray infoArray = GymDetailfInfoJson.getJSONArray(GYM_BRIEF);
+        JSONObject gymDetailInfoJson = new JSONObject(infoData);
 
-        //Define the returned ArrayList
-        ArrayList<GymDetail> gymDetails= new ArrayList<>();
+        String name = gymDetailInfoJson.getString(GYM_NAME);
+        double longitude = gymDetailInfoJson.getDouble(GYM_LONGITUDE);
+        double latitude = gymDetailInfoJson.getDouble(GYM_LATITUDE);
 
-        for (int i = 0; i < infoArray.length(); i++)
+        JSONArray imageUrlJson = gymDetailInfoJson.getJSONArray(GYM_IMAGE_URL_ARRAY);
+        String[] imageUrlArray = new String[imageUrlJson.length()];
+        for (int j = 0; j < imageUrlJson.length(); j++)
         {
-            JSONObject everyGymDetailJson = infoArray.getJSONObject(i);
-
-            String name = everyGymDetailJson.getString(GYM_NAME);
-            float longitude = (float) everyGymDetailJson.getDouble(GYM_LONGITUDE);
-            float latitude = (float) everyGymDetailJson.getDouble(GYM_LATITUDE);
-            JSONArray detailImageArray = everyGymDetailJson.getJSONArray(GYM_DETAIL_IMAGE);
-
-            String[] detaiImageUrl = new String[detailImageArray.length()];
-            for (int j = 0; j < detailImageArray.length(); j++)
-            {
-                JSONObject everyDetailImage = detailImageArray.getJSONObject(j);
-                detaiImageUrl[j] = everyDetailImage.getString(GYM_MAIN_IMAGE);
-            }
-            float signle_price = everyGymDetailJson.getInt(GYM_SINGLE_PRICE);
-            float vip_price = everyGymDetailJson.getInt(GYM_VIP_PRICE);
-            float discount = (float) everyGymDetailJson.getDouble(GYM_DISCOUNT);
-            String address_city = everyGymDetailJson.getString(GYM_ADDRESS_CITY);
-            String address_detail = everyGymDetailJson.getString(GYM_ADDRESS_DETAIL);
-            String phone_num = everyGymDetailJson.getString(GYM_PHONE_NUM);
-            String open_time = everyGymDetailJson.getString(GYM_OPEN_TIME);
-            String hardware = everyGymDetailJson.getString(GYM_HARDWARE);
-            String service = everyGymDetailJson.getString(GYM_SERVICE);
-            int star_level = everyGymDetailJson.getInt(GYM_STAR_LEVEL);
-
-
-            gymDetails.add(new GymDetail(name, detaiImageUrl, signle_price, vip_price, discount,
-                    address_city,address_detail, longitude, latitude, phone_num, open_time, hardware, service, star_level));
+                JSONObject everyImageUrlJson = imageUrlJson.getJSONObject(j);
+                imageUrlArray[j] = everyImageUrlJson.getString(GYM_IMAGE_URL);
         }
+        float signle_price = gymDetailInfoJson.getInt(GYM_SINGLE_PRICE);
+        float vip_price = gymDetailInfoJson.getInt(GYM_VIP_PRICE);
+        float discount = (float) gymDetailInfoJson.getDouble(GYM_DISCOUNT);
+        String address_city = gymDetailInfoJson.getString(GYM_ADDRESS_CITY);
+        String address_detail = gymDetailInfoJson.getString(GYM_ADDRESS_DETAIL);
+        String phone_num = gymDetailInfoJson.getString(GYM_PHONE_NUM);
+        String open_time = gymDetailInfoJson.getString(GYM_OPEN_TIME);
+        String hardware = gymDetailInfoJson.getString(GYM_HARDWARE);
+        String service = gymDetailInfoJson.getString(GYM_SERVICE);
+        int star_level = gymDetailInfoJson.getInt(GYM_STAR_LEVEL);
 
-        return gymDetails;
+
+           GymDetail gymDetail = new GymDetail(name, imageUrlArray, signle_price, vip_price, discount,
+                    address_city,address_detail, longitude, latitude, phone_num, open_time, hardware, service, star_level);
+
+        return gymDetail;
     }
 
     /**

@@ -10,6 +10,7 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.android.volley.RequestQueue;
 import com.guodong.R;
 import com.guodong.model.Gym;
 import com.guodong.util.GymAdapter;
@@ -20,6 +21,8 @@ import java.util.List;
 public class GymListActivity extends Activity
 {
     private List<Gym> gymList = new ArrayList<Gym>();
+    private RequestQueue requestQueue;
+    private Context context;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -28,12 +31,21 @@ public class GymListActivity extends Activity
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.sport_venue_lists);
 
-        initGyms();
-
         TextView sportNameText = (TextView) findViewById(R.id.sport_name);
         Intent intent = getIntent();
         String category = intent.getStringExtra("category");
         sportNameText.setText(category);
+
+        initGyms();
+/*        StringBuilder detailUrl = new StringBuilder();
+        requestQueue = Volley.newRequestQueue(context);
+        String response = Traffic.sendRequest(detailUrl.toString(), requestQueue);
+        try {
+            gymList = JsonParse.ParseBriefGymInfo(response);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }*/
+
 
         GymAdapter gymAdapter = new GymAdapter(GymListActivity.this, R.layout.sport_venue_lists_item, gymList);
 
@@ -44,8 +56,8 @@ public class GymListActivity extends Activity
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id)
             {
-                Intent intent = new Intent(view.getContext(), com.guodong.activity.SportVenueDetailActivity.class);
-                startActivity(intent);
+                Gym gym = gymList.get(position);
+                SportVenueDetailActivity.actionStart(context, gym.getGymName());
             }
         });
 

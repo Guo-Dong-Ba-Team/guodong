@@ -20,6 +20,8 @@ public class GymDetail
     private String service;
     private int star_level;
 
+
+
     public GymDetail(String name, String[] gymImageUrl, float single_price, float vip_price,
                      float discount, String address_city, String address_detail, double longitude, double latitude,
                      String phone_num, String open_time, String hardware, String service, int star_level)
