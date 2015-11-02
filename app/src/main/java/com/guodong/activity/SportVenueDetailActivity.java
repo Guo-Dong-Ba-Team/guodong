@@ -12,6 +12,9 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.NetworkImageView;
 import com.android.volley.toolbox.Volley;
 import com.guodong.R;
@@ -20,6 +23,7 @@ import com.guodong.util.JsonParse;
 import com.guodong.util.Traffic;
 
 import org.json.JSONException;
+import org.json.JSONObject;
 
 public class SportVenueDetailActivity extends Activity
 {
@@ -40,12 +44,22 @@ public class SportVenueDetailActivity extends Activity
         requestQueue = Volley.newRequestQueue(getApplicationContext());
         //加载场馆详细信息
         StringBuilder detailUrl = new StringBuilder();
-        String response = Traffic.sendRequest(detailUrl.toString(), requestQueue );
-        try {
-            gymDetail = JsonParse.ParseDetailGymInfo(response);
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
+        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(detailUrl.toString(), null,
+                new Response.Listener<JSONObject>() {
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        try {
+                            gymDetail = JsonParse.ParseDetailGymInfo(response.toString());
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                }, new Response.ErrorListener() {
+            @Override
+            public  void onErrorResponse(VolleyError error) {
+            }
+        });
+        requestQueue.add(jsonObjectRequest);
 
         initView();
 

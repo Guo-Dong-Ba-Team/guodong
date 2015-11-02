@@ -22,7 +22,7 @@ public class GymListActivity extends Activity
 {
     private List<Gym> gymList = new ArrayList<Gym>();
     private RequestQueue requestQueue;
-    private Context context;
+    private Context context = GymListActivity.this;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)

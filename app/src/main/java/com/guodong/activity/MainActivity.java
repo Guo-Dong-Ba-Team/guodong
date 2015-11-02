@@ -23,8 +23,8 @@ public class MainActivity extends FragmentActivity {
 
     private FragmentTabHost tabHost;
     private String tabNames[] = {"主页", "订单", "动吧", "我的"};
-    private int tabImages[] = {R.drawable.tab_btn_selector, R.drawable.tab_btn_selector,
-            R.drawable.tab_btn_selector, R.drawable.tab_btn_selector};
+    private int tabImages[] = {R.drawable.tab_home_selector, R.drawable.tab_order_selector,
+            R.drawable.tab_dongba_selector, R.drawable.tab_mine_selector};
     private Class fragmentArray[] = {HomeFragment.class, OrderFragment.class, OtherFragment.class,
             MineFragment.class};
 

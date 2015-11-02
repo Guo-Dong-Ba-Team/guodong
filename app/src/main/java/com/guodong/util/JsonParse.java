@@ -1,5 +1,7 @@
 package com.guodong.util;
 
+import android.util.Log;
+
 import com.guodong.model.GlobalData;
 import com.guodong.model.Gym;
 import com.guodong.model.GymDetail;
@@ -23,7 +25,7 @@ public class JsonParse
     final static String GYM_DETAIL = "gym_detail";
     final static String GYM_NAME = "name";
     final static String GYM_DISTANCE = "distance";
-    final static String GYM_IMAGE_URL = "gym_image_url";
+    final static String GYM_IMAGE_URL = "main_image";
     final static String GYM_IMAGE_URL_ARRAY = "gym_image_url_array";
     final static String GYM_SINGLE_PRICE = "single_price";
     final static String GYM_VIP_PRICE = "vip_price";
@@ -47,16 +49,18 @@ public class JsonParse
     {
         JSONObject GymBriefInfoJson = new JSONObject(infoData);
         JSONArray infoArray = GymBriefInfoJson.getJSONArray(GYM_BRIEF);
+        Log.d("YE", "infoArray size is " + infoArray.length());
 
         //Define the returned ArrayList
-        ArrayList<Gym> gymBriefs = new ArrayList<>();
+        ArrayList<Gym> gymBriefs = new ArrayList<>(infoArray.length());
 
 
-        for (int i = 0; i < infoArray.length(); i++)
+        for (int i = 0; i < infoArray.length()-1; i++)
         {
             JSONObject everyGymBriefJson = infoArray.getJSONObject(i);
 
             String name = everyGymBriefJson.getString(GYM_NAME);
+            Log.d("YE", "name is " + i + name);
             double longitude = (double) everyGymBriefJson.getDouble(GYM_LONGITUDE);
             double latitude = (double) everyGymBriefJson.getDouble(GYM_LATITUDE);
             String mainImageUrl = everyGymBriefJson.getString(GYM_IMAGE_URL);
@@ -74,6 +78,7 @@ public class JsonParse
             gymBriefs.add(new Gym(name, signle_price, distance, mainImageUrl));
         }
 
+        Log.d("YE", "DEBUG");
         return gymBriefs;
     }
     //Json parsing function for brief information of gyms

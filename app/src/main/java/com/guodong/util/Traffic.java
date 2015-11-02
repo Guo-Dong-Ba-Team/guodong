@@ -5,14 +5,9 @@ import android.graphics.Bitmap;
 import android.support.v4.util.LruCache;
 
 import com.android.volley.RequestQueue;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
 import com.android.volley.toolbox.ImageLoader;
-import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.NetworkImageView;
 import com.guodong.R;
-
-import org.json.JSONObject;
 
 /**
  * Created by yechy on 2015/10/29.
@@ -55,23 +50,6 @@ public class Traffic {
         }
     }
 
-    public static String sendRequest(String url, RequestQueue requestQueue) {
 
-        final StringBuilder result = new StringBuilder();
-        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(url, null,
-                new Response.Listener<JSONObject>() {
-                    @Override
-                    public void onResponse(JSONObject response) {
-                        //
-                        result.append(response.toString());
-                    }
-                }, new Response.ErrorListener() {
-            @Override
-            public  void onErrorResponse(VolleyError error) {
-            }
-        });
-        requestQueue.add(jsonObjectRequest);
-        return result.toString();
-    }
 
 }

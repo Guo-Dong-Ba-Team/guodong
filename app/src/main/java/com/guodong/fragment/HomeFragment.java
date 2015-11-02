@@ -11,6 +11,7 @@ import android.os.Handler;
 import android.os.Message;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
@@ -24,21 +25,25 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.NetworkImageView;
 import com.android.volley.toolbox.Volley;
 import com.guodong.R;
 import com.guodong.activity.BaiduMapActivity;
 import com.guodong.activity.SearchActivity;
 import com.guodong.activity.SportVenueDetailActivity;
+import com.guodong.model.Constant;
 import com.guodong.model.GlobalData;
 import com.guodong.model.Gym;
 import com.guodong.util.AdsAdapter;
 import com.guodong.util.GymAdapter;
 import com.guodong.util.JsonParse;
 import com.guodong.util.SportItemView;
-import com.guodong.util.Traffic;
 
 import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -62,6 +67,7 @@ public class HomeFragment extends Fragment {
     private double latitude;
     private RequestQueue requestQueue;
     private GlobalData globalData;
+    private GymAdapter gymAdapter;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -83,7 +89,7 @@ public class HomeFragment extends Fragment {
 
         //初始化gymList数据
         initGymData();
-        GymAdapter gymAdapter = new GymAdapter(getActivity(), R.layout.gym_item, gymList);
+        gymAdapter = new GymAdapter(getActivity(), R.layout.gym_item, gymList);
         ListView listView = (ListView) view.findViewById(R.id.home_listview);
 
         headerView = LayoutInflater.from(getActivity()).inflate(R.layout.listview_header, null);
@@ -262,16 +268,16 @@ public class HomeFragment extends Fragment {
         SportItemView sportView3 = (SportItemView) headerView.findViewById(R.id.sport3);
         SportItemView sportView4 = (SportItemView) headerView.findViewById(R.id.sport4);
 
-        sportView1.setSportImage(R.drawable.sport);
+        sportView1.setSportImage(R.drawable.yumaoqiu);
         sportView1.setSportText("羽毛球场");
 
-        sportView2.setSportImage(R.drawable.sport);
+        sportView2.setSportImage(R.drawable.pingpangqiu);
         sportView2.setSportText("乒乓球馆");
 
-        sportView3.setSportImage(R.drawable.sport);
-        sportView3.setSportText("网球场");
+        sportView3.setSportImage(R.drawable.youyongguan);
+        sportView3.setSportText("游泳馆");
 
-        sportView4.setSportImage(R.drawable.sport);
+        sportView4.setSportImage(R.drawable.jianshenfang);
         sportView4.setSportText("健身馆");
 
 
@@ -282,12 +288,8 @@ public class HomeFragment extends Fragment {
         gymList.clear();
         //下载场馆列表数据
         StringBuilder gymListUrl = new StringBuilder();
-        String response = Traffic.sendRequest(gymListUrl.toString(), requestQueue);
-        try {
-            gymList = JsonParse.ParseBriefGymInfo(response);
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
+        gymListUrl.append("http://182.61.8.185:8080/gym_info_brief");
+        sendRequest(gymListUrl.toString(), requestQueue);
 
     }
 
@@ -305,12 +307,54 @@ private void whatOpition() {
 }
 
 
-private final Handler viewHandler = new Handler() {
+private Handler viewHandler = new Handler() {
     @Override
 public void handleMessage(Message msg) {
-        homeViewPager.setCurrentItem(msg.what);
-        super.handleMessage(msg);
+        switch (msg.what) {
+            case Constant.SHOW_RESPONSE:
+                String response = (String) msg.obj;
+                Log.d("YE", "DEBUG 1");
+                try {
+                    gymList.clear();
+                    gymList.addAll(JsonParse.ParseBriefGymInfo(response));
+                    Log.d("YE","" + gymList.get(4).getGymName());
+                    Log.d("YE", gymList.get(4).getGymImageUrl());
+                    Log.d("YE", " "+gymList.get(4).getDistance());
+                    Log.d("YE", " "+gymList.get(4).getPrice());
+                    gymAdapter.notifyDataSetChanged();
+                    Log.d("YE", "DEBUG 2");
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                    }
+
+                break;
+            default:
+            homeViewPager.setCurrentItem(msg.what);
+            super.handleMessage(msg);
+        }
     }
 };
 
+
+    public void sendRequest(String url, RequestQueue requestQueue) {
+
+        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(url, null,
+                new Response.Listener<JSONObject>() {
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        //
+                        Message message = new Message();
+                        message.what = Constant.SHOW_RESPONSE;
+                        message.obj = response.toString();
+                        viewHandler.sendMessage(message);
+                    }
+                }, new Response.ErrorListener() {
+            @Override
+            public  void onErrorResponse(VolleyError error) {
+                Log.d("YE","DEBUG");
+            }
+        });
+        requestQueue.add(jsonObjectRequest);
+    }
 }
