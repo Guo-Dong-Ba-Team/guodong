@@ -44,6 +44,7 @@ public class SportVenueDetailActivity extends Activity
         requestQueue = Volley.newRequestQueue(getApplicationContext());
         //加载场馆详细信息
         StringBuilder detailUrl = new StringBuilder();
+        detailUrl.append("http://182.61.8.185:8080/gym_info_detail?gym_id=3");
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(detailUrl.toString(), null,
                 new Response.Listener<JSONObject>() {
                     @Override
@@ -96,6 +97,8 @@ public class SportVenueDetailActivity extends Activity
                 }
             }
         });
+
+
     }
 
     public static void actionStart(Context context, String gymName) {

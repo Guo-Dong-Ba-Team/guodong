@@ -1,7 +1,5 @@
 package com.guodong.util;
 
-import android.util.Log;
-
 import com.guodong.model.GlobalData;
 import com.guodong.model.Gym;
 import com.guodong.model.GymDetail;
@@ -49,22 +47,20 @@ public class JsonParse
     {
         JSONObject GymBriefInfoJson = new JSONObject(infoData);
         JSONArray infoArray = GymBriefInfoJson.getJSONArray(GYM_BRIEF);
-        Log.d("YE", "infoArray size is " + infoArray.length());
 
         //Define the returned ArrayList
         ArrayList<Gym> gymBriefs = new ArrayList<>(infoArray.length());
 
 
-        for (int i = 0; i < infoArray.length()-1; i++)
+        for (int i = 0; i < infoArray.length(); i++)
         {
             JSONObject everyGymBriefJson = infoArray.getJSONObject(i);
 
             String name = everyGymBriefJson.getString(GYM_NAME);
-            Log.d("YE", "name is " + i + name);
             double longitude = (double) everyGymBriefJson.getDouble(GYM_LONGITUDE);
             double latitude = (double) everyGymBriefJson.getDouble(GYM_LATITUDE);
             String mainImageUrl = everyGymBriefJson.getString(GYM_IMAGE_URL);
-            float signle_price =  (float) everyGymBriefJson.getDouble(GYM_SINGLE_PRICE);
+            float single_price =  (float) everyGymBriefJson.getDouble(GYM_SINGLE_PRICE);
             float vip_price = (float) everyGymBriefJson.getDouble(GYM_VIP_PRICE);
             float discount = (float) everyGymBriefJson.getDouble(GYM_DISCOUNT);
             //distance 由百度地图计算出来
@@ -75,10 +71,9 @@ public class JsonParse
                 distance = (float) Distance(longitude, latitude, myLongitude, myLatitude);
             }
 
-            gymBriefs.add(new Gym(name, signle_price, distance, mainImageUrl));
+            gymBriefs.add(new Gym(name, single_price, distance, mainImageUrl));
         }
 
-        Log.d("YE", "DEBUG");
         return gymBriefs;
     }
     //Json parsing function for brief information of gyms
@@ -86,7 +81,8 @@ public class JsonParse
     public static GymDetail ParseDetailGymInfo(String infoData)
             throws JSONException
     {
-        JSONObject gymDetailInfoJson = new JSONObject(infoData);
+        JSONObject gymInfoJson = new JSONObject(infoData);
+        JSONObject gymDetailInfoJson = gymInfoJson.getJSONObject(GYM_DETAIL);
 
         String name = gymDetailInfoJson.getString(GYM_NAME);
         double longitude = gymDetailInfoJson.getDouble(GYM_LONGITUDE);
@@ -99,7 +95,7 @@ public class JsonParse
                 JSONObject everyImageUrlJson = imageUrlJson.getJSONObject(j);
                 imageUrlArray[j] = everyImageUrlJson.getString(GYM_IMAGE_URL);
         }
-        float signle_price = gymDetailInfoJson.getInt(GYM_SINGLE_PRICE);
+        float single_price = gymDetailInfoJson.getInt(GYM_SINGLE_PRICE);
         float vip_price = gymDetailInfoJson.getInt(GYM_VIP_PRICE);
         float discount = (float) gymDetailInfoJson.getDouble(GYM_DISCOUNT);
         String address_city = gymDetailInfoJson.getString(GYM_ADDRESS_CITY);
@@ -111,7 +107,7 @@ public class JsonParse
         int star_level = gymDetailInfoJson.getInt(GYM_STAR_LEVEL);
 
 
-           GymDetail gymDetail = new GymDetail(name, imageUrlArray, signle_price, vip_price, discount,
+           GymDetail gymDetail = new GymDetail(name, imageUrlArray, single_price, vip_price, discount,
                     address_city,address_detail, longitude, latitude, phone_num, open_time, hardware, service, star_level);
 
         return gymDetail;

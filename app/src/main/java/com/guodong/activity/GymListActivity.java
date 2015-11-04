@@ -20,7 +20,7 @@ import java.util.List;
 
 public class GymListActivity extends Activity
 {
-    private List<Gym> gymList = new ArrayList<Gym>();
+    private List<Gym> gymList = new ArrayList<>();
     private RequestQueue requestQueue;
     private Context context = GymListActivity.this;
 
@@ -36,9 +36,27 @@ public class GymListActivity extends Activity
         String category = intent.getStringExtra("category");
         sportNameText.setText(category);
 
+        StringBuilder detailUrl = new StringBuilder();
+        switch (category) {
+            case "羽毛球场":
+                detailUrl.append(R.string.badmintonUrl);
+                break;
+            case "乒乓球馆":
+                detailUrl.append(R.string.pingpongUrl);
+                break;
+            case "游泳馆":
+                detailUrl.append(R.string.swimmingUrl);
+                break;
+            case "健身馆":
+                detailUrl.append(R.string.gymUrl);
+                break;
+            case "台球厅":
+                detailUrl.append(R.string.billiardUrl);
+                break;
+        }
+
         initGyms();
-/*        StringBuilder detailUrl = new StringBuilder();
-        requestQueue = Volley.newRequestQueue(context);
+/*      requestQueue = Volley.newRequestQueue(context);
         String response = Traffic.sendRequest(detailUrl.toString(), requestQueue);
         try {
             gymList = JsonParse.ParseBriefGymInfo(response);

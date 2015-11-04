@@ -20,4 +20,9 @@
     <string name="et_pswdconfirm">再次输入密码</string>
     <string name="register_submit">提交</string>
     <string name="title_activity_register">R</string>
+    <string name="badmintonUrl">http://182.61.8.185:8080/gym_info_brief?type=1</string>
+    <string name="pingpongUrl">http://182.61.8.185:8080/gym_info_brief?type=2</string>
+    <string name="gymUrl">http://182.61.8.185:8080/gym_info_brief?type=4</string>
+    <string name="billiardUrl">http://182.61.8.185:8080/gym_info_brief?type=5</string>
+    <string name="swimmingUrl">http://182.61.8.185:8080/gym_info_brief?type=6</string>
 </resources>

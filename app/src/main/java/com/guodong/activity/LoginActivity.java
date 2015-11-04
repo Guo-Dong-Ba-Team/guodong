@@ -91,7 +91,7 @@ public class LoginActivity extends Activity {
             System.out.println("======================================================");
             
             //genymotion 模拟器可以通过10.0.3.2连接到电脑localhost上
-            String spec = "http://10.0.3.2:8080/login" + "?phone="+loginPhone+"&password="+userPass;
+            String spec = "http://182.61.8.185:8080/login" + "?phone="+loginPhone+"&password="+userPass;
          
             // 根据地址创建URL对象(网络访问的url)
             URL url = new URL(spec);

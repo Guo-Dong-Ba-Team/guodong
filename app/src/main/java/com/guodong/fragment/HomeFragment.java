@@ -21,6 +21,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -53,7 +54,7 @@ import java.util.concurrent.atomic.AtomicInteger;
  * Created by yechy on 2015/9/20.
  */
 public class HomeFragment extends Fragment {
-    private List<Gym> gymList = new ArrayList<Gym>();
+    private List<Gym> gymList = new ArrayList<>();
     private View view;
     private View headerView;
     private ViewPager homeViewPager;
@@ -68,6 +69,7 @@ public class HomeFragment extends Fragment {
     private RequestQueue requestQueue;
     private GlobalData globalData;
     private GymAdapter gymAdapter;
+    private ProgressBar progressBar;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -97,8 +99,12 @@ public class HomeFragment extends Fragment {
         initSport();
         //初始化广告区域
         initViewPager();
-        listView.addHeaderView(headerView, null, false);
+        progressBar = (ProgressBar) view.findViewById(R.id.home_progress_bar);
+        if (progressBar.getVisibility() == View.GONE) {
+            progressBar.setVisibility(View.VISIBLE);
+        }
 
+        listView.addHeaderView(headerView, null, false);
         listView.setAdapter(gymAdapter);
         //设置listView点击事件
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -267,6 +273,7 @@ public class HomeFragment extends Fragment {
         SportItemView sportView2 = (SportItemView) headerView.findViewById(R.id.sport2);
         SportItemView sportView3 = (SportItemView) headerView.findViewById(R.id.sport3);
         SportItemView sportView4 = (SportItemView) headerView.findViewById(R.id.sport4);
+        SportItemView spotrView5 = (SportItemView) headerView.findViewById(R.id.sport5);
 
         sportView1.setSportImage(R.drawable.yumaoqiu);
         sportView1.setSportText("羽毛球场");
@@ -280,8 +287,8 @@ public class HomeFragment extends Fragment {
         sportView4.setSportImage(R.drawable.jianshenfang);
         sportView4.setSportText("健身馆");
 
-
-
+        spotrView5.setSportImage(R.drawable.taiqiu);
+        spotrView5.setSportText("台球厅");
     }
 
     private void initGymData() {
@@ -313,16 +320,14 @@ public void handleMessage(Message msg) {
         switch (msg.what) {
             case Constant.SHOW_RESPONSE:
                 String response = (String) msg.obj;
-                Log.d("YE", "DEBUG 1");
                 try {
                     gymList.clear();
                     gymList.addAll(JsonParse.ParseBriefGymInfo(response));
-                    Log.d("YE","" + gymList.get(4).getGymName());
-                    Log.d("YE", gymList.get(4).getGymImageUrl());
-                    Log.d("YE", " "+gymList.get(4).getDistance());
-                    Log.d("YE", " "+gymList.get(4).getPrice());
                     gymAdapter.notifyDataSetChanged();
-                    Log.d("YE", "DEBUG 2");
+
+                    if (progressBar.getVisibility() == View.VISIBLE) {
+                        progressBar.setVisibility(View.GONE);
+                    }
 
                 } catch (JSONException e) {
                     e.printStackTrace();
@@ -352,7 +357,7 @@ public void handleMessage(Message msg) {
                 }, new Response.ErrorListener() {
             @Override
             public  void onErrorResponse(VolleyError error) {
-                Log.d("YE","DEBUG");
+                Log.d("YE","返回错误信息" + error.toString());
             }
         });
         requestQueue.add(jsonObjectRequest);
