@@ -11,6 +11,7 @@
         android:text="运动设施"
         />
     <TextView
+        android:id="@+id/detail_facility"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"

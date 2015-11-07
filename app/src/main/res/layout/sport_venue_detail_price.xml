@@ -7,9 +7,9 @@
         <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="3dip"
-        android:layout_marginBottom="10dip"
-        android:textSize="18dip"
+        android:gravity="center_vertical"
+        android:layout_margin="5dip"
+        android:textSize="18sp"
         android:text="单次体验"
         />
 
@@ -19,12 +19,12 @@
         >
 
         <TextView
-            android:id="@+id/text1"
+            android:id="@+id/detail_single_price"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentLeft="true"
+            android:layout_marginLeft="10dp"
             android:layout_centerVertical="true"
-            android:textSize="12dip"
+            android:textSize="15sp"
             android:text="20￥"
             />
 
@@ -47,7 +47,7 @@
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
             android:background="#0f0"
-            android:textSize="18dp"
+            android:textSize="15sp"
             android:text="立即预订"
             />
     </RelativeLayout>

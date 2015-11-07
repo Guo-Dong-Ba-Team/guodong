@@ -9,6 +9,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
 import android.widget.Button;
+import android.widget.RatingBar;
 import android.widget.TextView;
 
 import com.android.volley.RequestQueue;
@@ -66,6 +67,21 @@ public class SportVenueDetailActivity extends Activity
 
         Button btnOrderNow = (Button) findViewById(R.id.btn_order_now);
         Button btnVipBuy = (Button) findViewById(R.id.btn_vip_buy);
+        TextView gymNameTextview = (TextView) findViewById(R.id.detail_gym_name);
+        TextView openTimeTextview = (TextView) findViewById(R.id.detail_open_time);
+        RatingBar ratingBar = (RatingBar) findViewById(R.id.detail_rating);
+        TextView singlePriceTextview = (TextView) findViewById(R.id.detail_single_price);
+        TextView vipPriceTextview = (TextView) findViewById(R.id.detail_vip_price);
+        TextView facilityTextview = (TextView) findViewById(R.id.detail_facility);
+        TextView serviceTextview = (TextView) findViewById(R.id.detail_service);
+
+        gymNameTextview.setText(gymDetail.getName());
+        openTimeTextview.setText("营业时间: " + gymDetail.getOpen_time());
+        ratingBar.setRating(gymDetail.getStar_level());
+        singlePriceTextview.setText("￥" + gymDetail.getSingle_price());
+        vipPriceTextview.setText("￥" + gymDetail.getVip_price());
+        facilityTextview.setText(gymDetail.getHardware());
+        serviceTextview.setText(gymDetail.getService());
 
         btnOrderNow.setOnClickListener(new View.OnClickListener()
         {

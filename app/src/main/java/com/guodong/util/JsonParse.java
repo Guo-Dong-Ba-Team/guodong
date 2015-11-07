@@ -104,7 +104,7 @@ public class JsonParse
         String open_time = gymDetailInfoJson.getString(GYM_OPEN_TIME);
         String hardware = gymDetailInfoJson.getString(GYM_HARDWARE);
         String service = gymDetailInfoJson.getString(GYM_SERVICE);
-        int star_level = gymDetailInfoJson.getInt(GYM_STAR_LEVEL);
+        float star_level = (float) gymDetailInfoJson.getDouble(GYM_STAR_LEVEL);
 
 
            GymDetail gymDetail = new GymDetail(name, imageUrlArray, single_price, vip_price, discount,

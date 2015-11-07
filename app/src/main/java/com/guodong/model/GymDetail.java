@@ -18,13 +18,13 @@ public class GymDetail
     private String open_time;
     private String hardware;
     private String service;
-    private int star_level;
+    private float star_level;
 
 
 
     public GymDetail(String name, String[] gymImageUrl, float single_price, float vip_price,
                      float discount, String address_city, String address_detail, double longitude, double latitude,
-                     String phone_num, String open_time, String hardware, String service, int star_level)
+                     String phone_num, String open_time, String hardware, String service, float star_level)
     {
         this.name = name;
         this.gymImageUrl = gymImageUrl;
@@ -94,7 +94,7 @@ public class GymDetail
         return service;
     }
 
-    public int getStar_level() {
+    public float getStar_level() {
         return star_level;
     }
 
