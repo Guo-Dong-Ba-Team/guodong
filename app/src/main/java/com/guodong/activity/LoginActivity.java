@@ -3,12 +3,15 @@ package com.guodong.activity;
 /**
  * Created by blarrow on 2015/10/21.
  */
+
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
@@ -23,7 +26,8 @@ import java.io.InputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
-public class LoginActivity extends Activity {
+public class LoginActivity extends Activity
+{
     private EditText et_password;
     private EditText loginPhone;
     private EditText et_username;
@@ -39,8 +43,40 @@ public class LoginActivity extends Activity {
     private String phone;
     private String password;
 
+    Handler handler = new Handler()
+    {
+        public void handleMessage(Message message)
+        {
+            switch (message.what)
+            {
+                //登录成功，已经在登录线程里面处理
+                case 0:
+                {
+                    break;
+                }
+                case 1:
+                {
+                    //这个手机号还注册
+                    Dialog.dismiss();
+                    Toast.makeText(mContext, "这个手机号还没有注册，请先注册", Toast.LENGTH_LONG).show();
+                    Intent intent = new Intent(mContext, RegisterActivity.class);
+                    startActivity(intent);
+                    break;
+                }
+                case 2:
+                {
+                    //手机号或密码不正确
+                    Dialog.dismiss();
+                    Toast.makeText(mContext, "手机号或密码不正确，请重新输入", Toast.LENGTH_LONG).show();
+                    break;
+                }
+            }
+        }
+    };
+
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState)
+    {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         pref = getSharedPreferences("loginID", MODE_PRIVATE);
@@ -52,25 +88,33 @@ public class LoginActivity extends Activity {
         rememberPass = (CheckBox) findViewById(R.id.remember_pass);
         globalData = (GlobalData) getApplicationContext();
 
-        phone = pref.getString("account","");
-        if (phone != "") {
+        phone = pref.getString("account", "");
+        if (phone != "")
+        {
             loginPhone.setText(phone);
         }
     }
-    public void registerInfo(View v){
-        Intent intent=new Intent(mContext, RegisterActivity.class);
+
+    public void registerInfo(View v)
+    {
+        Intent intent = new Intent(mContext, RegisterActivity.class);
         startActivity(intent);
     }
-    public void login(View v){
+
+    public void login(View v)
+    {
 
         password = et_password.getText().toString();
         phone = loginPhone.getText().toString();
 
-        if ("".equals(phone.trim()) || "".equals(password.trim())) {
+        if ("".equals(phone.trim()) || "".equals(password.trim()))
+        {
             Toast.makeText(mContext, "手机号或密码为空...", Toast.LENGTH_SHORT).show();
-        } else if (phone.trim().length() != 11  || password.trim().length() > 16) {
+        } else if (phone.trim().length() != 11 || password.trim().length() > 16)
+        {
             Toast.makeText(mContext, "手机号或密码格式错误", Toast.LENGTH_SHORT).show();
-        } else {
+        } else
+        {
             Dialog = new ProgressDialog(LoginActivity.this);
             Dialog.setTitle("提示");
             Dialog.setMessage("正在请求服务器，请稍候...");
@@ -80,19 +124,24 @@ public class LoginActivity extends Activity {
         {
             public void run()
             {
-                loginByGet(phone, password );
-            };
+                loginByGet(phone, password);
+            }
+
+            ;
         }.start();
     }
-    public void loginByGet(String loginPhone, String userPass) {
 
-        try {
+    public void loginByGet(String loginPhone, String userPass)
+    {
+
+        try
+        {
 
             System.out.println("======================================================");
-            
+
             //genymotion 模拟器可以通过10.0.3.2连接到电脑localhost上
-            String spec = "http://182.61.8.185:8080/login" + "?phone="+loginPhone+"&password="+userPass;
-         
+            String spec = "http://182.61.8.185:8080/login" + "?phone=" + loginPhone + "&password=" + userPass;
+
             // 根据地址创建URL对象(网络访问的url)
             URL url = new URL(spec);
             // url.openConnection()打开网络链接
@@ -106,7 +155,8 @@ public class LoginActivity extends Activity {
                     "Mozilla/5.0 (Windows NT 6.3; WOW64; rv:27.0) Gecko/20100101 Firefox/27.0");
             // 获取响应的状态码 404 200 505 302
             System.out.println(urlConnection.getResponseCode());
-            if (urlConnection.getResponseCode() == 200) {
+            if (urlConnection.getResponseCode() == 200)
+            {
                 // 获取响应的输入流对象
                 InputStream is = urlConnection.getInputStream();
 
@@ -117,7 +167,8 @@ public class LoginActivity extends Activity {
                 // 定义缓冲区
                 byte buffer[] = new byte[1024];
                 // 按照缓冲区的大小，循环读取
-                while ((len = is.read(buffer)) != -1) {
+                while ((len = is.read(buffer)) != -1)
+                {
                     // 根据读取的长度写入到os对象中
                     os.write(buffer, 0, len);
                 }
@@ -129,8 +180,10 @@ public class LoginActivity extends Activity {
                 System.out.println("***************" + result
                         + "******************");
 
-                if(result == "0") {
 
+                //登录成功
+                if (result.equals("0"))
+                {
                     //保存登陆的用户信息
                     globalData.setIsLogin(true);
                     globalData.setLoginAccount(loginPhone);
@@ -139,36 +192,34 @@ public class LoginActivity extends Activity {
                     editor.clear();
                     editor.commit();
                     editor.putBoolean("islogin", true);
-                    editor.putString("account",loginPhone);
-                    editor.putString("password",userPass);
+                    editor.putString("account", loginPhone);
+                    editor.putString("password", userPass);
 
                     editor.commit();
 
                     MainActivity.actionStart(LoginActivity.this, 3);
 
                 }
-                else if (result == "1")
+                else //登录失败，转到Handler处理
                 {
-                    //这个手机号还注册
-
+                    Message message = new Message();
+                    message.what = Integer.parseInt(result);
+                    handler.sendMessage(message);
                 }
-                else if (result == "2")
-                {
-                    //手机号或密码不正确
-
-                }
-
-            } else {
+            } else
+            {
                 System.out.println("------------------链接失败-----------------");
             }
 
-        } catch (Exception e) {
+        } catch (Exception e)
+        {
             e.printStackTrace();
         }
 
     }
 
-    public static void actionStart(Context context) {
+    public static void actionStart(Context context)
+    {
         Intent intent = new Intent(context, LoginActivity.class);
         context.startActivity(intent);
     }

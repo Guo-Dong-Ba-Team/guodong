@@ -92,8 +92,7 @@ public class JsonParse
         String[] imageUrlArray = new String[imageUrlJson.length()];
         for (int j = 0; j < imageUrlJson.length(); j++)
         {
-                JSONObject everyImageUrlJson = imageUrlJson.getJSONObject(j);
-                imageUrlArray[j] = everyImageUrlJson.getString(GYM_IMAGE_URL);
+                imageUrlArray[j] = imageUrlJson.getString(j);
         }
         float single_price = gymDetailInfoJson.getInt(GYM_SINGLE_PRICE);
         float vip_price = gymDetailInfoJson.getInt(GYM_VIP_PRICE);

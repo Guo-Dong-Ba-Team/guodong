@@ -121,24 +121,17 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"/>
 
-            <LinearLayout
+            <include
+                layout="@layout/sport_venue_detail_telephone"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical">
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="5dp"
-                    android:textSize="15sp"
-                    android:text="电话: 0551-6655443"/>
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="5dp"
-                    android:textSize="15sp"
-                    android:text="合肥市蜀山区金寨路"/>
+                android:layout_marginTop="10dp"/>
+            <include
+                layout="@layout/sport_venue_detail_address"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"/>
 
-            </LinearLayout>
 
         </LinearLayout>
 

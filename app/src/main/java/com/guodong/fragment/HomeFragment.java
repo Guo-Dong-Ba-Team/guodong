@@ -357,7 +357,7 @@ public void handleMessage(Message msg) {
                 }, new Response.ErrorListener() {
             @Override
             public  void onErrorResponse(VolleyError error) {
-                Log.d("YE","返回错误信息" + error.toString());
+                Log.d("YE","home 返回错误信息" + error.toString());
             }
         });
         requestQueue.add(jsonObjectRequest);

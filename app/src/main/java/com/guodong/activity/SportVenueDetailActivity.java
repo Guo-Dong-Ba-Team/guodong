@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -31,6 +32,19 @@ public class SportVenueDetailActivity extends Activity
 
     private RequestQueue requestQueue;
     private GymDetail gymDetail;
+    private TextView textView;
+    private Button btnVipBuy;
+    private Button btnOrderNow;
+    private TextView gymNameTextview;
+    private TextView openTimeTextview;
+    private RatingBar ratingBar;
+    private TextView singlePriceTextview;
+    private TextView vipPriceTextview;
+    private TextView facilityTextview;
+    private TextView serviceTextview;
+    private TextView addressTextview;
+    private TextView telephoneTextview;
+    private NetworkImageView imageView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -42,16 +56,41 @@ public class SportVenueDetailActivity extends Activity
         Intent intent = getIntent();
         String gymName = intent.getStringExtra("gym_name");
 
+        initView();
         requestQueue = Volley.newRequestQueue(getApplicationContext());
         //加载场馆详细信息
         StringBuilder detailUrl = new StringBuilder();
-        detailUrl.append("http://182.61.8.185:8080/gym_info_detail?gym_id=3");
+        detailUrl.append("http://182.61.8.185:8080/gym_info_detail?gym_id=1");
+        Log.d("YE", detailUrl.toString());
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(detailUrl.toString(), null,
                 new Response.Listener<JSONObject>() {
                     @Override
                     public void onResponse(JSONObject response) {
                         try {
+                            Log.d("YE","debug");
                             gymDetail = JsonParse.ParseDetailGymInfo(response.toString());
+                            Log.d("YE",gymDetail.getName());
+                            Log.d("YE",gymDetail.getGymImageUrl()[0]);
+
+                            //显示图片数
+                            Log.d("YE","debug 2");
+                            textView.setText("" + gymDetail.getGymImageUrl().length);
+
+                            //显示封面图片
+                            Log.d("YE","debug 3");
+                            Traffic.showNetworkImage(getApplicationContext(), requestQueue, gymDetail.getGymImageUrl()[0], imageView);
+
+
+                            gymNameTextview.setText(gymDetail.getName());
+                            openTimeTextview.setText("营业时间: " + gymDetail.getOpen_time());
+                            ratingBar.setRating(gymDetail.getStar_level());
+                            singlePriceTextview.setText("￥" + gymDetail.getSingle_price());
+                            vipPriceTextview.setText("￥" + gymDetail.getVip_price());
+                            facilityTextview.setText(gymDetail.getHardware());
+                            serviceTextview.setText(gymDetail.getService());
+                            addressTextview.setText(gymDetail.getAddress_detail());
+                            telephoneTextview.setText(gymDetail.getPhone_num());
+
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
@@ -59,29 +98,10 @@ public class SportVenueDetailActivity extends Activity
                 }, new Response.ErrorListener() {
             @Override
             public  void onErrorResponse(VolleyError error) {
+                Log.d("YE", "gymdetail 返回错误信息" + error.toString());
             }
         });
         requestQueue.add(jsonObjectRequest);
-
-        initView();
-
-        Button btnOrderNow = (Button) findViewById(R.id.btn_order_now);
-        Button btnVipBuy = (Button) findViewById(R.id.btn_vip_buy);
-        TextView gymNameTextview = (TextView) findViewById(R.id.detail_gym_name);
-        TextView openTimeTextview = (TextView) findViewById(R.id.detail_open_time);
-        RatingBar ratingBar = (RatingBar) findViewById(R.id.detail_rating);
-        TextView singlePriceTextview = (TextView) findViewById(R.id.detail_single_price);
-        TextView vipPriceTextview = (TextView) findViewById(R.id.detail_vip_price);
-        TextView facilityTextview = (TextView) findViewById(R.id.detail_facility);
-        TextView serviceTextview = (TextView) findViewById(R.id.detail_service);
-
-        gymNameTextview.setText(gymDetail.getName());
-        openTimeTextview.setText("营业时间: " + gymDetail.getOpen_time());
-        ratingBar.setRating(gymDetail.getStar_level());
-        singlePriceTextview.setText("￥" + gymDetail.getSingle_price());
-        vipPriceTextview.setText("￥" + gymDetail.getVip_price());
-        facilityTextview.setText(gymDetail.getHardware());
-        serviceTextview.setText(gymDetail.getService());
 
         btnOrderNow.setOnClickListener(new View.OnClickListener()
         {
@@ -93,27 +113,37 @@ public class SportVenueDetailActivity extends Activity
             }
         });
 
-    }
-
-    private void initView() {
-        NetworkImageView imageView = (NetworkImageView) findViewById(R.id.detail_show_image);
-        TextView textView = (TextView) findViewById(R.id.detail_image_num);
-        //
-        final String[] imageIntro = null;
-        //显示图片数
-        textView.setText("" + gymDetail.getGymImageUrl().length);
-        //显示封面图片
-        Traffic.showNetworkImage(getApplicationContext(), requestQueue, gymDetail.getGymImageUrl()[0], imageView);
         //浏览所有图片
-        imageView.setOnClickListener(new View.OnClickListener() {
+       imageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (gymDetail.getGymImageUrl().length > 0) {
+                final String[] imageIntro = new String[gymDetail.getGymImageUrl().length];
+                    for(int i = 0; i < gymDetail.getGymImageUrl().length; i++) {
+                        imageIntro[i] = "intro";
+                    }
                     DisplayImageActivity.actionStart(getApplicationContext(), gymDetail.getGymImageUrl(), imageIntro);
                 }
             }
         });
 
+    }
+
+    private void initView() {
+        btnOrderNow = (Button) findViewById(R.id.btn_order_now);
+        btnVipBuy = (Button) findViewById(R.id.btn_vip_buy);
+        gymNameTextview = (TextView) findViewById(R.id.detail_gym_name);
+        openTimeTextview = (TextView) findViewById(R.id.detail_open_time);
+        ratingBar = (RatingBar) findViewById(R.id.detail_rating);
+        singlePriceTextview = (TextView) findViewById(R.id.detail_single_price);
+        vipPriceTextview = (TextView) findViewById(R.id.detail_vip_price);
+        facilityTextview = (TextView) findViewById(R.id.detail_facility);
+        serviceTextview = (TextView) findViewById(R.id.detail_service);
+        imageView = (NetworkImageView) findViewById(R.id.detail_show_image);
+        textView = (TextView) findViewById(R.id.detail_image_num);
+        addressTextview = (TextView) findViewById(R.id.detail_address);
+        telephoneTextview = (TextView) findViewById(R.id.detail_telephone);
+        //
 
     }
 
