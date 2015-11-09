@@ -122,7 +122,7 @@ public class SportVenueDetailActivity extends Activity
                     for(int i = 0; i < gymDetail.getGymImageUrl().length; i++) {
                         imageIntro[i] = "intro";
                     }
-                    DisplayImageActivity.actionStart(getApplicationContext(), gymDetail.getGymImageUrl(), imageIntro);
+                    DisplayImageActivity.actionStart(SportVenueDetailActivity.this, gymDetail.getGymImageUrl(), imageIntro);
                 }
             }
         });
