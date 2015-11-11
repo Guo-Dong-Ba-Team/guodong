@@ -198,6 +198,7 @@ public class LoginActivity extends Activity
                     editor.commit();
 
                     MainActivity.actionStart(LoginActivity.this, 3);
+                    finish();
 
                 }
                 else //登录失败，转到Handler处理

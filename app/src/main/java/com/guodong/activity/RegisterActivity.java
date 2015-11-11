@@ -46,6 +46,7 @@ public class RegisterActivity extends Activity
                     Toast.makeText(mContext, "注册成功，为您跳转到登录页面", Toast.LENGTH_LONG).show();
                     Intent intent = new Intent(mContext, LoginActivity.class);
                     startActivity(intent);
+                    finish();
                     break;
                 }
                 case 1:

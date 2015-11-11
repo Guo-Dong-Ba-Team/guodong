@@ -9,6 +9,7 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TabHost;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.guodong.R;
 import com.guodong.fragment.HomeFragment;
@@ -29,6 +30,7 @@ public class MainActivity extends FragmentActivity {
             MineFragment.class};
 
     private int tabIndex;
+    private int mBackKeyPressedTimes = 0;
 
     protected void onCreate(Bundle savedInsatnceState) {
         super.onCreate(savedInsatnceState);
@@ -68,5 +70,30 @@ public class MainActivity extends FragmentActivity {
         Intent intent = new Intent(context, MainActivity.class);
         intent.putExtra("tabindex", tabIndex);
         context.startActivity(intent);
+    }
+
+    @Override
+    public void onBackPressed() {
+        if (mBackKeyPressedTimes == 0) {
+            Toast.makeText(MainActivity.this, "再按一次退出程序", Toast.LENGTH_SHORT).show();
+            mBackKeyPressedTimes = 1;
+            new Thread() {
+                @Override
+            public void run() {
+                    try {
+                        Thread.sleep(2000);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    } finally {
+                        mBackKeyPressedTimes = 0;
+                    }
+                }
+            }.start();
+            return;
+        } else {
+            finish();
+            System.exit(0);
+        }
+        super.onBackPressed();
     }
 }

@@ -47,6 +47,7 @@ public class UserInfo extends Activity implements View.OnClickListener {
                 editor.commit();
                 //回到主活动的我的界面
                 MainActivity.actionStart(UserInfo.this, 3);
+                finish();
                 break;
             case R.id.modify_head:
                 Toast.makeText(UserInfo.this, "修改头像", Toast.LENGTH_SHORT).show();
