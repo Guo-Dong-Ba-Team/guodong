@@ -12,6 +12,7 @@ import android.widget.ListView;
 import android.widget.SimpleAdapter;
 
 import com.guodong.R;
+import com.guodong.activity.LoginActivity;
 import com.guodong.activity.MainActivity;
 import com.guodong.activity.Order_cancel;
 import com.guodong.activity.Order_no;
@@ -69,22 +70,20 @@ public class OrderFragment extends Fragment {
 
         @Override
         public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-
-
             // TODO Auto-generated method stub
-           // Toast.makeText(mMainActivity.getApplicationContext(), "第个Item", Toast.LENGTH_SHORT).show();
-
-
-
-            if (position == 0) {
-                Intent intent = new Intent(mMainActivity, Order_no.class);
-                startActivity(intent);
-            } else if (position == 1) {
-                Intent intent = new Intent(mMainActivity, Order_cancel.class);
-                startActivity(intent);
-            } else if (position == 2) {
-                Intent intent = new Intent(mMainActivity, Order_no.class);
-                startActivity(intent);
+            if (new GlobalData().getIsLogin()) {
+                if (position == 0) {
+                    Intent intent = new Intent(mMainActivity, Order_no.class);
+                    startActivity(intent);
+                } else if (position == 1) {
+                    Intent intent = new Intent(mMainActivity, Order_cancel.class);
+                    startActivity(intent);
+                } else if (position == 2) {
+                    Intent intent = new Intent(mMainActivity, Order_no.class);
+                    startActivity(intent);
+                }
+            } else {
+                LoginActivity.actionStart(getActivity());
             }
         }
 
