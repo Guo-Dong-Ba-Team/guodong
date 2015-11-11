@@ -42,6 +42,7 @@ import com.guodong.util.AdsAdapter;
 import com.guodong.util.GymAdapter;
 import com.guodong.util.JsonParse;
 import com.guodong.util.SportItemView;
+import com.guodong.util.Traffic;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -111,7 +112,7 @@ public class HomeFragment extends Fragment {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Gym gym = gymList.get(position);
-                SportVenueDetailActivity.actionStart(getActivity(), gym.getGymName());
+                SportVenueDetailActivity.actionStart(getActivity(), gym.getGymId());
             }
         });
 
@@ -188,8 +189,10 @@ public class HomeFragment extends Fragment {
         ads3.setBackgroundColor(Color.TRANSPARENT);
         adsImageList.add(ads3);
         //从服务器加载广告图片并显示
-
-        //Traffic.showNetworkImage(getActivity(),requestQueue, adUrl, ads1);
+        String adUrl = "http://182.61.8.185/images/3/3.jpg";
+        Traffic.showNetworkImage(requestQueue, adUrl, ads1);
+        Traffic.showNetworkImage(requestQueue, adUrl, ads2);
+        Traffic.showNetworkImage(requestQueue, adUrl, ads3);
 
         //对dotImageViews进行填充
         dotImageViews = new ImageView[adsImageList.size()];

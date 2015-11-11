@@ -54,7 +54,7 @@ public class SportVenueDetailActivity extends Activity
         setContentView(R.layout.sport_venue_detail);
 
         Intent intent = getIntent();
-        String gymName = intent.getStringExtra("gym_name");
+        String gymId = intent.getStringExtra("gym_id");
 
         initView();
         requestQueue = Volley.newRequestQueue(getApplicationContext());
@@ -78,7 +78,7 @@ public class SportVenueDetailActivity extends Activity
 
                             //显示封面图片
                             Log.d("YE","debug 3");
-                            Traffic.showNetworkImage(getApplicationContext(), requestQueue, gymDetail.getGymImageUrl()[0], imageView);
+                            Traffic.showNetworkImage(requestQueue, gymDetail.getGymImageUrl()[0], imageView);
 
 
                             gymNameTextview.setText(gymDetail.getName());
@@ -147,9 +147,9 @@ public class SportVenueDetailActivity extends Activity
 
     }
 
-    public static void actionStart(Context context, String gymName) {
+    public static void actionStart(Context context, int gymId) {
         Intent intent = new Intent(context, SportVenueDetailActivity.class);
-        intent.putExtra("gym_name", gymName);
+        intent.putExtra("gym_id", gymId);
         context.startActivity(intent);
     }
 

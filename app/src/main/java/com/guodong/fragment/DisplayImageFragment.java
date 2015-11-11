@@ -35,7 +35,7 @@ public class DisplayImageFragment extends Fragment {
         textView.setText(intro);
 
         requestQueue = Volley.newRequestQueue(getActivity());
-        Traffic.showNetworkImage(getActivity(), requestQueue, url, imageView);
+        Traffic.showNetworkImage(requestQueue, url, imageView);
 
         return view;
     }

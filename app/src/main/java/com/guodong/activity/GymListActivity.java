@@ -77,7 +77,7 @@ public class GymListActivity extends Activity
             public void onItemClick(AdapterView<?> parent, View view, int position, long id)
             {
                 Gym gym = gymList.get(position);
-                SportVenueDetailActivity.actionStart(context, gym.getGymName());
+                SportVenueDetailActivity.actionStart(context, gym.getGymId());
             }
         });
 

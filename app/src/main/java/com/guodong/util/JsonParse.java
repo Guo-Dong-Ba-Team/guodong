@@ -3,6 +3,7 @@ package com.guodong.util;
 import com.guodong.model.GlobalData;
 import com.guodong.model.Gym;
 import com.guodong.model.GymDetail;
+import com.guodong.model.OrderInfo;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -40,6 +41,13 @@ public class JsonParse
 
     private static GlobalData globalData = (GlobalData) GlobalData.getContext().getApplicationContext();
 
+    final static String ORDER_INFO = "order_info";
+    final static String ORDER_USER = "user";
+    final static String ORDER_MONEY = "money";
+    final static String ORDER_STATUS = "status";
+    final static String ORDER_TIME = "time";
+    final static String ORDER_NAME = "name";
+
     //Json parsing function for brief information of gyms
     //Return format: ArrayList of GymBrief objects
     public static List<Gym> ParseBriefGymInfo(String infoData)
@@ -63,6 +71,7 @@ public class JsonParse
             float single_price =  (float) everyGymBriefJson.getDouble(GYM_SINGLE_PRICE);
             float vip_price = (float) everyGymBriefJson.getDouble(GYM_VIP_PRICE);
             float discount = (float) everyGymBriefJson.getDouble(GYM_DISCOUNT);
+            int gymId = (int) everyGymBriefJson.getInt("id");
             //distance 由百度地图计算出来
             float distance = 0;
             double myLongitude = globalData.getMyLongitude();
@@ -71,7 +80,7 @@ public class JsonParse
                 distance = (float) Distance(longitude, latitude, myLongitude, myLatitude);
             }
 
-            gymBriefs.add(new Gym(name, single_price, distance, mainImageUrl));
+            gymBriefs.add(new Gym(name, gymId, single_price, distance, mainImageUrl));
         }
 
         return gymBriefs;
@@ -142,5 +151,26 @@ public class JsonParse
                 * Math.asin(Math.sqrt(sa2 * sa2 + Math.cos(lat1)
                 * Math.cos(lat2) * sb2 * sb2));
         return d/ 1000.0;
+    }
+
+    //Json parsing function for order_info
+    //Return format: ArrayList of OrderInfo objects
+
+    public static ArrayList<OrderInfo> ParseorderInfos(String infoData)
+            throws JSONException {
+        JSONObject orderInfoJson = new JSONObject(infoData);
+        JSONArray infoArray = orderInfoJson.getJSONArray(ORDER_INFO);
+        ArrayList<OrderInfo> orderinfos = new ArrayList<>(infoArray.length());
+        for (int i = 0; i < infoArray.length(); i++) {
+            JSONObject orderinfo = infoArray.getJSONObject(i);
+            String name = orderinfo.getString(ORDER_NAME);
+            String user = orderinfo.getString(ORDER_USER);
+            String time = orderinfo.getString(ORDER_TIME);
+            float money = (float) orderinfo.getDouble(ORDER_MONEY);
+            int status = orderinfo.getInt(ORDER_STATUS);
+            orderinfos.add(new OrderInfo(user, name, time, status,money) );
+        }
+        return orderinfos;
+
     }
 }

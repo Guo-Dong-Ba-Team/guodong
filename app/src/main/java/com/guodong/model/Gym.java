@@ -8,6 +8,7 @@ public class Gym {
     private float price;
     private float distance;
     private String gymImageUrl;
+    private int gymId;
 
     public Gym() {
 
@@ -19,8 +20,9 @@ public class Gym {
         this.distance = distance;
     }
 
-    public Gym(String gymName, float price, float distance, String gymImageUrl) {
+    public Gym(String gymName, int gymId, float price, float distance, String gymImageUrl) {
         this.gymName = gymName;
+        this.gymId = gymId;
         this.price = price;
         this.distance = distance;
         this.gymImageUrl = gymImageUrl;
@@ -40,5 +42,9 @@ public class Gym {
 
     public String getGymImageUrl() {
         return gymImageUrl;
+    }
+
+    public int getGymId() {
+        return gymId;
     }
 }

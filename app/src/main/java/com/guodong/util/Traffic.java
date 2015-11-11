@@ -1,6 +1,5 @@
 package com.guodong.util;
 
-import android.content.Context;
 import android.graphics.Bitmap;
 import android.support.v4.util.LruCache;
 
@@ -14,7 +13,7 @@ import com.guodong.R;
  */
 public class Traffic {
 
-    public static void showNetworkImage(Context context, RequestQueue requestQueue, String url,
+    public static void showNetworkImage(RequestQueue requestQueue, String url,
                                         NetworkImageView networkImageView) {
 
         //RequestQueue requestQueue = Volley.newRequestQueue(context);
