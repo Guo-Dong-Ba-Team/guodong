@@ -71,7 +71,8 @@ public class OrderFragment extends Fragment {
         @Override
         public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
             // TODO Auto-generated method stub
-            if (new GlobalData().getIsLogin()) {
+            globalData = (GlobalData) getActivity().getApplicationContext();
+            if (globalData.getIsLogin()) {
                 if (position == 0) {
                     Intent intent = new Intent(mMainActivity, Order_no.class);
                     startActivity(intent);
