@@ -39,9 +39,6 @@
 
         </activity>
 
-        <activity android:name=".activity.Order_no" ></activity>
-        <activity android:name=".activity.Order_finish" ></activity>
-        <activity android:name=".activity.Order_cancel" ></activity>
         <activity android:name=".activity.GymListActivity" ></activity>
         <activity android:name=".activity.SportVenueDetailActivity" ></activity>
         <activity android:name=".activity.BaiduMapActivity" ></activity>

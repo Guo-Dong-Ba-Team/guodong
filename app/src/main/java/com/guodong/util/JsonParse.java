@@ -67,11 +67,16 @@ public class JsonParse
             String name = everyGymBriefJson.getString(GYM_NAME);
             double longitude = (double) everyGymBriefJson.getDouble(GYM_LONGITUDE);
             double latitude = (double) everyGymBriefJson.getDouble(GYM_LATITUDE);
-            String mainImageUrl = everyGymBriefJson.getString(GYM_IMAGE_URL);
+            int gymId = (int) everyGymBriefJson.getInt("id");
+            StringBuilder stringBuilder = new StringBuilder();
+            stringBuilder.append("http://182.61.8.185/images/");
+            stringBuilder.append(gymId).append("/");
+            stringBuilder.append(everyGymBriefJson.getString(GYM_IMAGE_URL));
+            String mainImageUrl = stringBuilder.toString();
             float single_price =  (float) everyGymBriefJson.getDouble(GYM_SINGLE_PRICE);
             float vip_price = (float) everyGymBriefJson.getDouble(GYM_VIP_PRICE);
             float discount = (float) everyGymBriefJson.getDouble(GYM_DISCOUNT);
-            int gymId = (int) everyGymBriefJson.getInt("id");
+
             //distance 由百度地图计算出来
             float distance = 0;
             double myLongitude = globalData.getMyLongitude();
@@ -87,7 +92,7 @@ public class JsonParse
     }
     //Json parsing function for brief information of gyms
     //Return format: ArrayList of GymBrief objects
-    public static GymDetail ParseDetailGymInfo(String infoData)
+    public static GymDetail ParseDetailGymInfo(String infoData, int gymId)
             throws JSONException
     {
         JSONObject gymInfoJson = new JSONObject(infoData);
@@ -98,10 +103,13 @@ public class JsonParse
         double latitude = gymDetailInfoJson.getDouble(GYM_LATITUDE);
 
         JSONArray imageUrlJson = gymDetailInfoJson.getJSONArray(GYM_IMAGE_URL_ARRAY);
+        StringBuilder stringBuilder = new StringBuilder();
+        stringBuilder.append("http://182.61.8.185/images/");
+        stringBuilder.append(gymId).append("/");
         String[] imageUrlArray = new String[imageUrlJson.length()];
         for (int j = 0; j < imageUrlJson.length(); j++)
         {
-                imageUrlArray[j] = imageUrlJson.getString(j);
+                imageUrlArray[j] = stringBuilder.append(imageUrlJson.getString(j)).toString();
         }
         float single_price = gymDetailInfoJson.getInt(GYM_SINGLE_PRICE);
         float vip_price = gymDetailInfoJson.getInt(GYM_VIP_PRICE);

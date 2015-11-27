@@ -45,6 +45,7 @@ public class SportVenueDetailActivity extends Activity
     private TextView addressTextview;
     private TextView telephoneTextview;
     private NetworkImageView imageView;
+    private int gymId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -54,21 +55,20 @@ public class SportVenueDetailActivity extends Activity
         setContentView(R.layout.sport_venue_detail);
 
         Intent intent = getIntent();
-        String gymId = intent.getStringExtra("gym_id");
+        gymId = intent.getIntExtra("gym_id", 0);
 
         initView();
         requestQueue = Volley.newRequestQueue(getApplicationContext());
         //加载场馆详细信息
         StringBuilder detailUrl = new StringBuilder();
-        detailUrl.append("http://182.61.8.185:8080/gym_info_detail?gym_id=1");
-        Log.d("YE", detailUrl.toString());
+        detailUrl.append("http://182.61.8.185:8080/gym_info_detail?gym_id=").append(gymId);
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(detailUrl.toString(), null,
                 new Response.Listener<JSONObject>() {
                     @Override
                     public void onResponse(JSONObject response) {
                         try {
                             Log.d("YE","debug");
-                            gymDetail = JsonParse.ParseDetailGymInfo(response.toString());
+                            gymDetail = JsonParse.ParseDetailGymInfo(response.toString(), gymId);
                             Log.d("YE",gymDetail.getName());
                             Log.d("YE",gymDetail.getGymImageUrl()[0]);
 

@@ -5,37 +5,43 @@ package com.guodong.model;
  */
 public class OrderInfo {
     private String user;
-    private String name;
-    private String time;
+    private String phoneNum;
+    private String gymName;
+    private String bookTime;
+    private String orderTime;
     private int status;
-    private float money;
+    private float price;
 
-    public OrderInfo(String user, String name, String time, int status, float  money) {
-        this.user = user;
-        this.name = name;
-        this.time = time;
+    public OrderInfo(String gymName, String bookTime, String orderTime, int status, float  price) {
+        this.gymName = gymName;
+        this.bookTime = bookTime;
+        this.orderTime = orderTime;
         this.status = status;
-        this.money = money;
+        this.price = price;
     }
 
-    public String getName() {
-        return name;
+    public String getGymName() {
+        return gymName;
     }
 
-    public String getUser() {
-        return user;
+    public String getPhoneNum() {
+        return phoneNum;
     }
 
-    public String getTime() {
-        return time;
+    public String getBookTime() {
+        return bookTime;
+    }
+
+    public String getOrderTime() {
+        return orderTime;
     }
 
     public int getStatus() {
         return status;
     }
 
-    public float getMoney() {
-        return money;
+    public float getPrice() {
+        return price;
     }
 }
 

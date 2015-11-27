@@ -12,7 +12,6 @@ import com.guodong.fragment.DisplayImageFragment;
 import com.guodong.util.ImageFragAdapter;
 
 import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Created by yechy on 2015/10/30.
@@ -28,7 +27,7 @@ public class DisplayImageActivity extends FragmentActivity {
         String[] imageUrl = intent.getStringArrayExtra("imageUrl");
         String[] imageIntro = intent.getStringArrayExtra("imageIntro");
 
-        List<Fragment> fragmentList = new ArrayList<Fragment>();
+        ArrayList<Fragment> fragmentList = new ArrayList<Fragment>();
         for (int i = 0; i < imageUrl.length; i++) {
             DisplayImageFragment fragment = new DisplayImageFragment();
             Bundle args = new Bundle();

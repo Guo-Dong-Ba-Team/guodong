@@ -16,6 +16,8 @@ import com.guodong.fragment.HomeFragment;
 import com.guodong.fragment.MineFragment;
 import com.guodong.fragment.OrderFragment;
 import com.guodong.fragment.OtherFragment;
+import com.guodong.fragment.UnloginFragment;
+import com.guodong.model.GlobalData;
 
 /**
  * Created by yechy on 2015/9/21.
@@ -23,11 +25,11 @@ import com.guodong.fragment.OtherFragment;
 public class MainActivity extends FragmentActivity {
 
     private FragmentTabHost tabHost;
+    private GlobalData globalData;
     private String tabNames[] = {"主页", "订单", "动吧", "我的"};
     private int tabImages[] = {R.drawable.tab_home_selector, R.drawable.tab_order_selector,
             R.drawable.tab_dongba_selector, R.drawable.tab_mine_selector};
-    private Class fragmentArray[] = {HomeFragment.class, OrderFragment.class, OtherFragment.class,
-            MineFragment.class};
+    private Class[] fragmentArray;
 
     private int tabIndex;
     private int mBackKeyPressedTimes = 0;
@@ -35,6 +37,15 @@ public class MainActivity extends FragmentActivity {
     protected void onCreate(Bundle savedInsatnceState) {
         super.onCreate(savedInsatnceState);
         setContentView(R.layout.activity_main);
+        globalData = (GlobalData) getApplicationContext();
+
+        if (globalData.getIsLogin()) {
+            fragmentArray = new Class[] {HomeFragment.class, OrderFragment.class, OtherFragment.class,
+                    MineFragment.class};
+        } else {
+            fragmentArray = new Class[] {HomeFragment.class, UnloginFragment.class, OtherFragment.class,
+                    MineFragment.class};
+        }
 
         Intent intent = getIntent();
         tabIndex = intent.getIntExtra("tabindex",0);
