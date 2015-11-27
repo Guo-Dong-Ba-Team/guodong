@@ -46,7 +46,6 @@ public class OrderTabFragment extends Fragment {
 
         initOrderList();
         listView.setAdapter(orderAdapter);
-
         return view;
     }
 
