@@ -116,6 +116,7 @@ public class GymListActivity extends Activity
                     public void onResponse(JSONObject response) {
                         try {
                             gymList.clear();
+                            Log.d("YE", "01 " + response.toString());
                             gymList.addAll(JsonParse.ParseBriefGymInfo(response.toString()));
                             gymAdapter.notifyDataSetChanged();
                         } catch (JSONException e) {

@@ -100,15 +100,15 @@ public class OrderFragment extends Fragment {
         fragmentArrayList = new ArrayList<Fragment>();
         Fragment fragment1 = new OrderTabFragment();
         Bundle args1 = new Bundle();
-        args1.putString("url", "");
+        args1.putString("url", "http://182.61.8.185:8080/order_info?user=" +globalData.getLoginAccount() + "&status=1");
         fragment1.setArguments(args1);
         Fragment fragment2 = new OrderTabFragment();
         Bundle args2 = new Bundle();
-        args1.putString("url", "");
+        args1.putString("url", "http://182.61.8.185:8080/order_info?user=" +globalData.getLoginAccount() + "&status=1");
         fragment1.setArguments(args2);
         Fragment fragment3 = new OrderTabFragment();
         Bundle args3 = new Bundle();
-        args1.putString("url", "");
+        args1.putString("url", "http://182.61.8.185:8080/order_info?user=" +globalData.getLoginAccount() + "&status=1");
         fragment1.setArguments(args3);
         fragmentArrayList.add(fragment1);
         fragmentArrayList.add(fragment2);
