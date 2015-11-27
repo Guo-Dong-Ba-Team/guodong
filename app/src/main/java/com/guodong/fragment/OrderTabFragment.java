@@ -37,8 +37,9 @@ public class OrderTabFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         Bundle args = getArguments();
-        url = args.getString("url");
-
+        Log.d("YE","DEBUG1");
+        url = args.getString("url", " ");
+        Log.d("YE","DEBUG2" + url);
         View view = inflater.inflate(R.layout.order_tab_fragment, container, false);
         listView = (ListView) view.findViewById(R.id.order_listview);
         orderAdapter = new OrderAdapter(getActivity(), R.layout.order_item, orderInfoList);
