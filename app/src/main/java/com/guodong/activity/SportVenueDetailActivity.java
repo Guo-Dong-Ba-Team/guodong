@@ -47,6 +47,7 @@ public class SportVenueDetailActivity extends Activity
     private NetworkImageView imageView;
     private int gymId;
 
+    private String gymName;
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
@@ -56,6 +57,7 @@ public class SportVenueDetailActivity extends Activity
 
         Intent intent = getIntent();
         gymId = intent.getIntExtra("gym_id", 0);
+        gymName = intent.getStringExtra("gym_name");
 
         initView();
         requestQueue = Volley.newRequestQueue(getApplicationContext());
@@ -107,9 +109,8 @@ public class SportVenueDetailActivity extends Activity
         {
             @Override
             public void onClick(View v)
-            {
-                Intent intent = new Intent(SportVenueDetailActivity.this, GymSelectActivity.class);
-                startActivity(intent);
+            {                
+            	GymSelectActivity.actionStart(SportVenueDetailActivity.this,gymName);
             }
         });
 
@@ -147,9 +148,10 @@ public class SportVenueDetailActivity extends Activity
 
     }
 
-    public static void actionStart(Context context, int gymId) {
+    public static void actionStart(Context context, int gymId, String gymName) {
         Intent intent = new Intent(context, SportVenueDetailActivity.class);
         intent.putExtra("gym_id", gymId);
+        intent.putExtra("gym_name", gymName);
         context.startActivity(intent);
     }
 

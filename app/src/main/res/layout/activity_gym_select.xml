@@ -8,6 +8,14 @@
               android:paddingRight="@dimen/activity_horizontal_margin"
               android:paddingTop="@dimen/activity_vertical_margin"
               tools:context="com.example.android.orderpositontest.GymSelectActivity">
+  <TextView
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:background="#99CCFF"
+        android:gravity="center"
+        android:text="下单"
+        android:textColor="#FFFFFF"
+        android:textSize="17sp"/>
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -39,7 +47,7 @@
     </LinearLayout>
 
     <fragment
-        android:id="@+id/fragment"
+        android:id="@+id/gym_select_fragment"
         android:name="com.guodong.fragment.GymSelectFragment"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
