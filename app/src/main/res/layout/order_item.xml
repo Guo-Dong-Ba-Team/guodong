@@ -21,6 +21,14 @@
         android:textSize="15sp"
         android:text="预订时间:    2015年12月1日13:00"/>
     <TextView
+        android:id="@+id/order_reversefield"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/order_booktime"
+        android:layout_marginTop="5dp"
+        android:layout_marginLeft="5dp"
+        android:text="场地：1号"/>
+    <TextView
         android:id="@+id/order_price"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
