@@ -52,12 +52,12 @@ public class OrderTabFragment extends Fragment {
     private void initOrderList() {
         orderInfoList.clear();
         requestQueue = Volley.newRequestQueue(getActivity());
-        //sendRequest(url, requestQueue);
+        sendRequest(url, requestQueue);
 
-        OrderInfo orderInfo = new OrderInfo("天河体育场","12月11日12:00", "12345", 1, 20);
-        orderInfoList.add(orderInfo);
-        orderInfoList.add(orderInfo);
-        orderInfoList.add(orderInfo);
+        //OrderInfo orderInfo = new OrderInfo("天河体育场","12月11日12:00", "12345", 1, 20);
+        //orderInfoList.add(orderInfo);
+        //orderInfoList.add(orderInfo);
+        //orderInfoList.add(orderInfo);
 
     }
 

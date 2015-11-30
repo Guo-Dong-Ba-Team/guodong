@@ -5,7 +5,6 @@ package com.guodong.model;
  */
 public class OrderInfo {
     private String user;
-    private String phoneNum;
     private String gymName;
     private String bookTime;
     private String orderTime;
@@ -22,10 +21,6 @@ public class OrderInfo {
 
     public String getGymName() {
         return gymName;
-    }
-
-    public String getPhoneNum() {
-        return phoneNum;
     }
 
     public String getBookTime() {

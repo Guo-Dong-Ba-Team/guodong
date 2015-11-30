@@ -8,6 +8,7 @@
         android:layout_width="100dp"
         android:layout_height="50dp"
         android:layout_marginRight="5dp"
+        android:scaleType="fitXY"
         android:background="@color/highlighted_text_material_dark"/>
     <TextView
         android:id="@+id/gym_name"

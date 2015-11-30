@@ -103,13 +103,14 @@ public class JsonParse
         double latitude = gymDetailInfoJson.getDouble(GYM_LATITUDE);
 
         JSONArray imageUrlJson = gymDetailInfoJson.getJSONArray(GYM_IMAGE_URL_ARRAY);
-        StringBuilder stringBuilder = new StringBuilder();
-        stringBuilder.append("http://182.61.8.185/images/");
-        stringBuilder.append(gymId).append("/");
+
         String[] imageUrlArray = new String[imageUrlJson.length()];
         for (int j = 0; j < imageUrlJson.length(); j++)
         {
-                imageUrlArray[j] = stringBuilder.append(imageUrlJson.getString(j)).toString();
+            StringBuilder stringBuilder = new StringBuilder();
+            stringBuilder.append("http://182.61.8.185/images/");
+            stringBuilder.append(gymId).append("/");
+            imageUrlArray[j] = stringBuilder.append(imageUrlJson.getString(j)).toString();
         }
         float single_price = gymDetailInfoJson.getInt(GYM_SINGLE_PRICE);
         float vip_price = gymDetailInfoJson.getInt(GYM_VIP_PRICE);
@@ -171,12 +172,13 @@ public class JsonParse
         ArrayList<OrderInfo> orderinfos = new ArrayList<>(infoArray.length());
         for (int i = 0; i < infoArray.length(); i++) {
             JSONObject orderinfo = infoArray.getJSONObject(i);
-            String name = orderinfo.getString(ORDER_NAME);
+            String gymName = orderinfo.getString(ORDER_NAME);
             String user = orderinfo.getString(ORDER_USER);
-            String time = orderinfo.getString(ORDER_TIME);
-            float money = (float) orderinfo.getDouble(ORDER_MONEY);
+            String bookTime = orderinfo.getString(ORDER_TIME);
+            String orderTime = orderinfo.getString("order_time");
+            float price = (float) orderinfo.getDouble(ORDER_MONEY);
             int status = orderinfo.getInt(ORDER_STATUS);
-            orderinfos.add(new OrderInfo(user, name, time, status,money) );
+            orderinfos.add(new OrderInfo(gymName, bookTime, orderTime, status, price) );
         }
         return orderinfos;
 

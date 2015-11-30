@@ -111,7 +111,7 @@ public class HomeFragment extends Fragment {
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Gym gym = gymList.get(position);
+                Gym gym = gymList.get(position-1);//
                 SportVenueDetailActivity.actionStart(getActivity(), gym.getGymId());
             }
         });
