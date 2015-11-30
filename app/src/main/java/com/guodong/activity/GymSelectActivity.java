@@ -24,14 +24,15 @@ import java.io.InputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLEncoder;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.GregorianCalendar;
 
 public class GymSelectActivity extends Activity
 {
-
     private GlobalData globalData;
     //用来保存每个场地的预订状态0:ordered,1:unselected,2:selected,-1:表示为顶部或左部的文字区域
     int[] orderState = null;
@@ -71,7 +72,6 @@ public class GymSelectActivity extends Activity
             return 0;
         }
 
-
         //构造订单信息，一次下单的几个场地看作不同的订单
         for (int i = 0; i < orderedPosition.size(); i++)
         {
@@ -79,13 +79,11 @@ public class GymSelectActivity extends Activity
             reserveField = ((orderedPosition.get(i) + 1) % 7 + 6) % 7;
             SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
             orderTime = df.format(new Date());
-            status = 1;
+            status = 0;
             price = 20.0f;
 
             //获取用户手机号
             final String loginPhone = globalData.getLoginAccount();
-
-            //设置等待效果
 
             //发送数据到服务器
             new Thread()
@@ -96,7 +94,6 @@ public class GymSelectActivity extends Activity
                 }
             }.start();
         }
-
         return orderedPosition.size();
     }
 
@@ -251,22 +248,69 @@ public class GymSelectActivity extends Activity
             @Override
             public void onClick(View v)
             {
-                GymSelectFragment gymSelectFragment = (GymSelectFragment) getFragmentManager().findFragmentById(R.id.gym_select_fragment);
-                gymSelectFragment.setOrderState();
-                int orderNum = generateOrderInfo();
-                if (orderNum == 0)
+                if (!globalData.getIsLogin())
                 {
-                    Toast.makeText(GymSelectActivity.this, "请至少选择一块场地", Toast.LENGTH_LONG).show();
-                    return;
+                    Toast.makeText(GymSelectActivity.this, "请先登录", Toast.LENGTH_LONG).show();
+                    LoginActivity.actionStart(GymSelectActivity.this);
+                } else
+                {
+                    GymSelectFragment gymSelectFragment = (GymSelectFragment) getFragmentManager().findFragmentById(R.id.gym_select_fragment);
+                    gymSelectFragment.setOrderState();
+                    int orderNum = generateOrderInfo();
+                    if (orderNum == 0)
+                    {
+                        Toast.makeText(GymSelectActivity.this, "请至少选择一块场地", Toast.LENGTH_LONG).show();
+                        return;
+                    }
+
+                    if (CalculateDayDiff(orderTime, reserveDayStr) > 7.0)
+                    {
+                        Toast.makeText(GymSelectActivity.this, "预定日期超过七天，请重新选择日期", Toast.LENGTH_LONG).show();
+                        return;
+                    }
+
+                    if (CalculateDayDiff(orderTime, reserveDayStr) < 0.0)
+                    {
+                        Toast.makeText(GymSelectActivity.this, "预订日期已过，请重新选择日期", Toast.LENGTH_LONG).show();
+                        return;
+                    }
+
+                    //跳转到订单详情页面
+                    OrderDetailActivity.actionStart(GymSelectActivity.this, gymName, orderTime,
+                            reserveDayStr + " " + String.valueOf(reserveHour) + ":00:00",
+                            reserveField, price, status);
                 }
-
-                //跳转到支付页面
-                OrderDetailActivity.actionStart(GymSelectActivity.this, gymName, orderTime,
-                        reserveDayStr + " " + String.valueOf(reserveHour) + ":00:00",
-                        reserveField, price);
-
             }
         });
+    }
+
+    double CalculateDayDiff(String orderTime, String reserveTime)
+    {
+        SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+        Date orderDate = null;
+        Date reserveDate = null;
+
+        try
+        {
+            orderDate = df.parse(orderTime);
+        } catch (ParseException e)
+        {
+            e.printStackTrace();
+        }
+        try
+        {
+            reserveDate = df.parse(reserveTime);
+        } catch (ParseException e)
+        {
+            e.printStackTrace();
+        }
+
+        GregorianCalendar orderCanlendar = new GregorianCalendar();
+        GregorianCalendar reserveCanlendar = new GregorianCalendar();
+        orderCanlendar.setTime(orderDate);
+        reserveCanlendar.setTime(reserveDate);
+        int a = (int) (reserveCanlendar.getTimeInMillis() - orderCanlendar.getTimeInMillis()) / (1000 * 3600 * 24);
+        return (reserveCanlendar.getTimeInMillis() - orderCanlendar.getTimeInMillis()) / (1000 * 3600 * 24);
     }
 
     @Override
@@ -293,7 +337,6 @@ public class GymSelectActivity extends Activity
 
         return super.onOptionsItemSelected(item);
     }
-
 
     public static void actionStart(Context context, String gymName)
     {

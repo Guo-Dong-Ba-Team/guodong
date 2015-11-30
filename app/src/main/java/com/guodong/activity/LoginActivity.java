@@ -103,7 +103,6 @@ public class LoginActivity extends Activity
 
     public void login(View v)
     {
-
         password = et_password.getText().toString();
         phone = loginPhone.getText().toString();
 
@@ -133,10 +132,8 @@ public class LoginActivity extends Activity
 
     public void loginByGet(String loginPhone, String userPass)
     {
-
         try
         {
-
             System.out.println("======================================================");
 
             //genymotion 模拟器可以通过10.0.3.2连接到电脑localhost上
@@ -180,7 +177,6 @@ public class LoginActivity extends Activity
                 System.out.println("***************" + result
                         + "******************");
 
-
                 //登录成功
                 if (result.equals("0"))
                 {
@@ -211,12 +207,10 @@ public class LoginActivity extends Activity
             {
                 System.out.println("------------------链接失败-----------------");
             }
-
         } catch (Exception e)
         {
             e.printStackTrace();
         }
-
     }
 
     public static void actionStart(Context context)

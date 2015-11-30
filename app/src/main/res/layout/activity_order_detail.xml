@@ -32,6 +32,7 @@
                 android:id="@+id/gym_name"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
                 android:text="场馆名称:"
                 />
 
@@ -128,11 +129,14 @@
     </LinearLayout>
 
     <LinearLayout
+        android:id="@+id/order_detail_wait"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
+        android:orientation="vertical"
         >
 
     </LinearLayout>
+
 
 </LinearLayout>
