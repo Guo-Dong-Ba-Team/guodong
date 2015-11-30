@@ -112,7 +112,7 @@ public class HomeFragment extends Fragment {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Gym gym = gymList.get(position-1);//
-                SportVenueDetailActivity.actionStart(getActivity(), gym.getGymId());
+                SportVenueDetailActivity.actionStart(getActivity(), gym.getGymId(), gym.getGymName());
             }
         });
 

@@ -47,6 +47,7 @@
         <activity android:name=".activity.UserInfo" ></activity>
         <activity android:name=".activity.GymSelectActivity" ></activity>
         <activity android:name=".activity.DisplayImageActivity" ></activity>
+        <activity android:name=".activity.OrderDetailActivity" ></activity>
 
         <activity android:name="com.alipay.sdk.app.H5PayActivity"
                   android:configChanges="orientation|keyboardHidden|navigation"

@@ -25,4 +25,7 @@
     <string name="gymUrl">http://182.61.8.185:8080/gym_info_brief?type=4</string>
     <string name="billiardUrl">http://182.61.8.185:8080/gym_info_brief?type=5</string>
     <string name="swimmingUrl">http://182.61.8.185:8080/gym_info_brief?type=6</string>
+    <string name="title_activity_order_detail">OrderDetailActivity</string>
+    <string name="order_detail">订单详情</string>
 </resources>
+

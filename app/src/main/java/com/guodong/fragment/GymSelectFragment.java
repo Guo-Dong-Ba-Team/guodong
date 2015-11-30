@@ -1,6 +1,7 @@
 package com.guodong.fragment;
 
 
+import android.app.Activity;
 import android.app.Fragment;
 import android.content.Context;
 import android.os.Bundle;
@@ -15,6 +16,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.guodong.R;
+import com.guodong.activity.GymSelectActivity;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -24,6 +26,7 @@ import java.util.HashMap;
  */
 public class GymSelectFragment extends Fragment
 {
+    private GymSelectActivity gymSelectActivity = null;
     GridView gridView;
     View view;
     MyAdapter myAdapter;
@@ -35,7 +38,7 @@ public class GymSelectFragment extends Fragment
     int timeNum = 14;
 
     //用来保存每个场地的预订状态0:ordered,1:unselected,2:selected,-1:表示为顶部或左部的文字区域
-    int[] orderState = new int[(num+1) * timeNum];
+    int[] orderState = new int[(num + 1) * timeNum];
 
     //已选择的场地数目，选择多于4块即弹出提示
     int selectedNum = 0;
@@ -46,6 +49,18 @@ public class GymSelectFragment extends Fragment
     public GymSelectFragment()
     {
         // Required empty public constructor
+    }
+
+    @Override
+    public void onAttach(Activity activity)
+    {
+        super.onAttach(activity);
+        gymSelectActivity = (GymSelectActivity)activity;
+    }
+
+    public void setOrderState()
+    {
+        gymSelectActivity.setOrderState(orderState);
     }
 
     @Override
