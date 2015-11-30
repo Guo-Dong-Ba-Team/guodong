@@ -12,8 +12,9 @@
         android:background="#99CCFF"
         android:gravity="center"
         android:text="订单详情"
+        android:textSize="17sp"
         android:textColor="#FFFFFF"
-        android:textSize="17sp"/>
+        />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -33,6 +34,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
+                android:textSize="17sp"
                 android:text="场馆名称:"
                 />
 
@@ -54,6 +56,7 @@
                 android:id="@+id/order_time"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:textSize="17sp"
                 android:text="下单时间:"
                 />
 
@@ -75,6 +78,7 @@
                 android:id="@+id/reserve_time"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:textSize="17sp"
                 android:text="预订时间:"
                 />
 
@@ -96,6 +100,7 @@
                 android:id="@+id/reserve_field"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:textSize="17sp"
                 android:text="预订场地:"
                 />
 
@@ -117,6 +122,7 @@
                 android:id="@+id/order_detail_price"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:textSize="17sp"
                 android:text="价格:"
                 />
 
@@ -135,6 +141,15 @@
         android:layout_weight="1"
         android:orientation="vertical"
         >
+        <!--<Button-->
+        <!--android:id="@+id/btn_order_detail_submit_order"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:background="#ffb100"-->
+        <!--android:layout_marginTop="5dp"-->
+        <!--android:textSize="20sp"-->
+        <!--android:text="提交订单"-->
+        <!--/>-->
 
     </LinearLayout>
 

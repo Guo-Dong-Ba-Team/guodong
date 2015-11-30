@@ -71,7 +71,7 @@
             android:layout_height="wrap_content"
             android:background="#ffb100"
             android:layout_marginTop="5dp"
-            android:text="提交订单"
+            android:text="确定"
             android:textSize="20sp"
             />
 
