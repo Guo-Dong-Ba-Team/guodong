@@ -43,8 +43,7 @@ public class GymSelectFragment extends Fragment
     //已选择的场地数目，选择多于4块即弹出提示
     int selectedNum = 0;
 
-    //场地的价格，从app后台获取，这里采用fake数据
-    int singlePrice = 20;
+    float singlePrice = 0;
 
     public GymSelectFragment()
     {
@@ -63,16 +62,20 @@ public class GymSelectFragment extends Fragment
         gymSelectActivity.setOrderState(orderState);
     }
 
+    public void getSinglePrice()
+    {
+        singlePrice = gymSelectActivity.getPrice();
+    }
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState)
     {
+//        singlePrice = getArguments().getFloat("price");
         View view = inflater.inflate(R.layout.fragment_order_gym, container, false);
-
         gridView = (GridView) view.findViewById(R.id.order_positon_gridview);
         arrayList = new ArrayList<>();
 
-
+        getSinglePrice();
         //设置场地的预订状态,实际中，根据商家端预订结果和时间过期信息来修改
         for (int i = 0; i < orderState.length; i++)
         {
@@ -242,6 +245,4 @@ public class GymSelectFragment extends Fragment
             return view;
         }
     }
-
-
 }

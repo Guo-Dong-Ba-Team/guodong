@@ -31,22 +31,28 @@ import java.util.TimerTask;
 public class GymSelectActivity extends Activity
 {
     private GlobalData globalData;
+    ArrayList<Integer> orderedPosition = null;
     //用来保存每个场地的预订状态0:ordered,1:unselected,2:selected,-1:表示为顶部或左部的文字区域
     int[] orderState = null;
     String orderTime = "";
     String reserveDayStr = "";
     String gymName = "";
+    String openTime = "";
+    int fieldNum = 0;
+    float price = -1;
+
     int reserveHour = -1;
     int reserveField = -1;
     int status = -1;
-    float price = -1;
-
-
-    ArrayList<Integer> orderedPosition = null;
 
     public void setOrderState(int[] orderState)
     {
         this.orderState = orderState;
+    }
+
+    public float getPrice()
+    {
+        return price;
     }
 
     //由所有场地的状态得到当前预订的场地,生成订单信息
@@ -77,31 +83,28 @@ public class GymSelectActivity extends Activity
             SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
             orderTime = df.format(new Date());
             status = 0;
-            price = 20.0f;
-
-
-
         }
         return orderedPosition.size();
     }
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
+        Intent intent = getIntent();
+        gymName = intent.getStringExtra("gym_name");
+        openTime = intent.getStringExtra("open_time");
+        fieldNum = intent.getIntExtra("field_num", 0);
+        price = intent.getFloatExtra("price", 0.0f);
+
         super.onCreate(savedInstanceState);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.activity_gym_select);
 
-        Intent intent = getIntent();
-        gymName = intent.getStringExtra("gym_name");
 
         final EditText orderDate = (EditText) findViewById(R.id.date);
         final TextView noticeText = (TextView) findViewById(R.id.notice_text);
         Button btnSubmitOrder = (Button) findViewById(R.id.btn_submit_order);
-
         globalData = (GlobalData) getApplicationContext();
-
 
         orderDate.setOnFocusChangeListener(new View.OnFocusChangeListener()
         {
@@ -201,6 +204,14 @@ public class GymSelectActivity extends Activity
                 }
             }
         });
+
+//        Bundle bundle = new Bundle();
+//        bundle.putFloat("price", price);
+//        GymSelectFragment gymSelectFragment = new GymSelectFragment();
+//        gymSelectFragment.setArguments(bundle);
+//
+//        getFragmentManager().beginTransaction().replace(R.id.gym_select_fragment, gymSelectFragment).commit();
+
     }
 
     double CalculateDayDiff(String orderTime, String reserveTime)
@@ -257,10 +268,13 @@ public class GymSelectActivity extends Activity
         return super.onOptionsItemSelected(item);
     }
 
-    public static void actionStart(Context context, String gymName)
+    public static void actionStart(Context context, String gymName, String openTime, int fieldNum, float price)
     {
         Intent intent = new Intent(context, GymSelectActivity.class);
         intent.putExtra("gym_name", gymName);
+        intent.putExtra("open_time", openTime);
+        intent.putExtra("field_num", fieldNum);
+        intent.putExtra("price", price);
         context.startActivity(intent);
     }
 }

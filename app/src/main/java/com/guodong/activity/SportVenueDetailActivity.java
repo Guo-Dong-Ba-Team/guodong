@@ -110,7 +110,7 @@ public class SportVenueDetailActivity extends Activity
             @Override
             public void onClick(View v)
             {                
-            	GymSelectActivity.actionStart(SportVenueDetailActivity.this,gymName);
+            	GymSelectActivity.actionStart(SportVenueDetailActivity.this,gymName, gymDetail.getOpen_time(), 6, gymDetail.getSingle_price());
             }
         });
 
