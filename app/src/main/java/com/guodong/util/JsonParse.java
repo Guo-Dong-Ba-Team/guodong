@@ -45,8 +45,10 @@ public class JsonParse
     final static String ORDER_USER = "user";
     final static String ORDER_MONEY = "money";
     final static String ORDER_STATUS = "status";
-    final static String ORDER_TIME = "time";
-    final static String ORDER_NAME = "name";
+    final static String ORDER_TIME = "order_time";
+    final static String BOOK_TIME = "reserve_time";
+    final static String RESERVE_FIELD = "reserve_field";
+    final static String ORDER_NAME = "gym_name";
 
     //Json parsing function for brief information of gyms
     //Return format: ArrayList of GymBrief objects
@@ -124,8 +126,8 @@ public class JsonParse
         float star_level = (float) gymDetailInfoJson.getDouble(GYM_STAR_LEVEL);
 
 
-           GymDetail gymDetail = new GymDetail(name, imageUrlArray, single_price, vip_price, discount,
-                    address_city,address_detail, longitude, latitude, phone_num, open_time, hardware, service, star_level);
+        GymDetail gymDetail = new GymDetail(name, imageUrlArray, single_price, vip_price, discount,
+                address_city,address_detail, longitude, latitude, phone_num, open_time, hardware, service, star_level);
 
         return gymDetail;
     }
@@ -174,11 +176,12 @@ public class JsonParse
             JSONObject orderinfo = infoArray.getJSONObject(i);
             String gymName = orderinfo.getString(ORDER_NAME);
             String user = orderinfo.getString(ORDER_USER);
-            String bookTime = orderinfo.getString(ORDER_TIME);
-            String orderTime = orderinfo.getString("order_time");
+            String orderTime = orderinfo.getString(ORDER_TIME);
+            String bookTime = orderinfo.getString(BOOK_TIME);
             float price = (float) orderinfo.getDouble(ORDER_MONEY);
+            int reserveField = orderinfo.getInt(RESERVE_FIELD);
             int status = orderinfo.getInt(ORDER_STATUS);
-            orderinfos.add(new OrderInfo(gymName, bookTime, orderTime, status, price) );
+            orderinfos.add(new OrderInfo(gymName, reserveField, bookTime, orderTime, status, price) );
         }
         return orderinfos;
 
