@@ -8,10 +8,12 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.Window;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.guodong.R;
 import com.guodong.fragment.GymSelectFragment;
@@ -33,9 +35,15 @@ public class GymSelectActivity extends Activity
     private GlobalData globalData;
     //用来保存每个场地的预订状态0:ordered,1:unselected,2:selected,-1:表示为顶部或左部的文字区域
     int[] orderState = null;
-    String nowStr = "";
+    String orderTime = "";
     String reserveDayStr = "";
     String gymName = "";
+    int reserveHour = -1;
+    int reserveField = -1;
+    int status = -1;
+    float price = -1;
+
+
     ArrayList<Integer> orderedPosition = null;
 
     public void setOrderState(int[] orderState)
@@ -44,7 +52,7 @@ public class GymSelectActivity extends Activity
     }
 
     //由所有场地的状态得到当前预订的场地,生成订单信息
-    public void generateOrderInfo()
+    public int generateOrderInfo()
     {
         orderedPosition = new ArrayList<>();
         if (orderState != null)
@@ -58,15 +66,21 @@ public class GymSelectActivity extends Activity
             }
         }
 
+        if (orderedPosition.size() == 0)
+        {
+            return 0;
+        }
+
+
         //构造订单信息，一次下单的几个场地看作不同的订单
         for (int i = 0; i < orderedPosition.size(); i++)
         {
-            final int reserve_hour = (orderedPosition.get(i) + 1) / 7 + 7;
-            final int reserve_field = ((orderedPosition.get(i) + 1) % 7 + 6) % 7;
+            reserveHour = (orderedPosition.get(i) + 1) / 7 + 7;
+            reserveField = ((orderedPosition.get(i) + 1) % 7 + 6) % 7;
             SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
-            nowStr = df.format(new Date());
-            final int status = 1;
-            final float price = 20.0f;
+            orderTime = df.format(new Date());
+            status = 1;
+            price = 20.0f;
 
             //获取用户手机号
             final String loginPhone = globalData.getLoginAccount();
@@ -78,30 +92,32 @@ public class GymSelectActivity extends Activity
             {
                 public void run()
                 {
-                    UploadOrderInfo(loginPhone, gymName, status, nowStr, reserveDayStr, reserve_hour, reserve_field, price);
+                    UploadOrderInfo(loginPhone, gymName, status, orderTime, reserveDayStr, reserveHour, reserveField, price);
                 }
             }.start();
         }
+
+        return orderedPosition.size();
     }
 
-    public void UploadOrderInfo(String loginPhone, String gymName, int status, String orderTime, String reserveTime, int reserver_hour, int reserve_field, float price)
+    public void UploadOrderInfo(String loginPhone, String gymName, int status, String orderTime, String reserveTime, int reserver_hour, int reserveField, float price)
     {
         try
         {
             String charset = "UTF-8";
             String main_url = "http://182.61.8.185:8080/order";
-            String query = String.format("user=%s&gym_name=%s&status=%s&order_time=%s&reserve_day=%s&reserve_hour=%s&reserve_field=%s&price=%s",
+            String query = String.format("user=%s&gym_name=%s&status=%s&order_time=%s&reserve_day=%s&reserveHour=%s&reserveField=%s&price=%s",
                     URLEncoder.encode(loginPhone, charset),
                     URLEncoder.encode(gymName, charset),
                     URLEncoder.encode(String.valueOf(status), charset),
                     URLEncoder.encode(orderTime, charset),
                     URLEncoder.encode(reserveTime, charset),
                     URLEncoder.encode(String.valueOf(reserver_hour), charset),
-                    URLEncoder.encode(String.valueOf(reserve_field), charset),
+                    URLEncoder.encode(String.valueOf(reserveField), charset),
                     URLEncoder.encode(String.valueOf(price), charset));
 
             // 根据地址创建URL对象(网络访问的url)
-            URL url = new URL(main_url+ "?" + query);
+            URL url = new URL(main_url + "?" + query);
             // url.openConnection()打开网络链接
             HttpURLConnection urlConnection = (HttpURLConnection) url
                     .openConnection();
@@ -165,6 +181,7 @@ public class GymSelectActivity extends Activity
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
+        requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.activity_gym_select);
 
         Intent intent = getIntent();
@@ -191,10 +208,10 @@ public class GymSelectActivity extends Activity
                         public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth)
                         {
                             noticeText.setText("您选择的预订日期是：");
-                            orderDate.setText((year)+"年"+(monthOfYear + 1) + "月" + dayOfMonth + "日");
+                            orderDate.setText((year) + "年" + (monthOfYear + 1) + "月" + dayOfMonth + "日");
 
                             //Date的构造代码里面默认将year+1900，所以这里需要减去1900
-                            Date reserve_day = new Date(year-1900, monthOfYear+1, dayOfMonth);
+                            Date reserve_day = new Date(year - 1900, monthOfYear, dayOfMonth);
                             SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
                             reserveDayStr = df.format(reserve_day);
                         }
@@ -216,12 +233,13 @@ public class GymSelectActivity extends Activity
                     public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth)
                     {
                         noticeText.setText("您选择的预订日期是：");
-                        orderDate.setText((year)+"年"+(monthOfYear + 1) + "月" + dayOfMonth + "日");
+                        orderDate.setText((year) + "年" + (monthOfYear + 1) + "月" + dayOfMonth + "日");
 
                         //Date的构造代码里面默认将year+1900，所以这里需要减去1900
-                        Date reserve_day = new Date(year-1900, monthOfYear+1, dayOfMonth);
+                        Date reserve_day = new Date(year - 1900, monthOfYear, dayOfMonth);
                         SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
-                   }
+                        reserveDayStr = df.format(reserve_day);
+                    }
                 }, c.get(Calendar.YEAR), c.get(Calendar.MONTH), c.get(Calendar.DAY_OF_MONTH)
                 ).show();
             }
@@ -235,9 +253,17 @@ public class GymSelectActivity extends Activity
             {
                 GymSelectFragment gymSelectFragment = (GymSelectFragment) getFragmentManager().findFragmentById(R.id.gym_select_fragment);
                 gymSelectFragment.setOrderState();
-                generateOrderInfo();
+                int orderNum = generateOrderInfo();
+                if (orderNum == 0)
+                {
+                    Toast.makeText(GymSelectActivity.this, "请至少选择一块场地", Toast.LENGTH_LONG).show();
+                    return;
+                }
 
                 //跳转到支付页面
+                OrderDetailActivity.actionStart(GymSelectActivity.this, gymName, orderTime,
+                        reserveDayStr + " " + String.valueOf(reserveHour) + ":00:00",
+                        reserveField, price);
 
             }
         });
