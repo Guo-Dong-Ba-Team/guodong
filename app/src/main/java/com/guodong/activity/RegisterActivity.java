@@ -116,7 +116,6 @@ public class RegisterActivity extends Activity
                     registerByGet(username, password, phone);
                 }
 
-                ;
             }.start();
 
         }

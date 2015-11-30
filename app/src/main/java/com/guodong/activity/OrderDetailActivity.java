@@ -64,6 +64,8 @@ public class OrderDetailActivity extends Activity
                         public void run()
                         {
                             //转到未消费订单页面
+                            MainActivity.actionStart(OrderDetailActivity.this, 1);
+                            finish();
                         }
                     }, 1000);
 

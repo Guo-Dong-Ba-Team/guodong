@@ -126,7 +126,6 @@ public class LoginActivity extends Activity
                 loginByGet(phone, password);
             }
 
-            ;
         }.start();
     }
 

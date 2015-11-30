@@ -87,7 +87,7 @@ public class SportVenueDetailActivity extends Activity
                             openTimeTextview.setText("营业时间: " + gymDetail.getOpen_time());
                             ratingBar.setRating(gymDetail.getStar_level());
                             singlePriceTextview.setText("￥" + gymDetail.getSingle_price());
-                            vipPriceTextview.setText("￥" + gymDetail.getVip_price());
+//                            vipPriceTextview.setText("￥" + gymDetail.getVip_price());
                             facilityTextview.setText(gymDetail.getHardware());
                             serviceTextview.setText(gymDetail.getService());
                             addressTextview.setText(gymDetail.getAddress_detail());
@@ -137,7 +137,7 @@ public class SportVenueDetailActivity extends Activity
         openTimeTextview = (TextView) findViewById(R.id.detail_open_time);
         ratingBar = (RatingBar) findViewById(R.id.detail_rating);
         singlePriceTextview = (TextView) findViewById(R.id.detail_single_price);
-        vipPriceTextview = (TextView) findViewById(R.id.detail_vip_price);
+       // vipPriceTextview = (TextView) findViewById(R.id.detail_vip_price);
         facilityTextview = (TextView) findViewById(R.id.detail_facility);
         serviceTextview = (TextView) findViewById(R.id.detail_service);
         imageView = (NetworkImageView) findViewById(R.id.detail_show_image);

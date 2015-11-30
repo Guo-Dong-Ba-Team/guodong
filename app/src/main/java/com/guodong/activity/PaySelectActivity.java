@@ -113,7 +113,7 @@ public class PaySelectActivity extends Activity{
                 default:
                     break;
             }
-        };
+        }
     };
 
     /**
