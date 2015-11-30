@@ -36,11 +36,13 @@ public class OrderAdapter extends ArrayAdapter<OrderInfo> {
         TextView bookTimeTV = (TextView) view.findViewById(R.id.order_booktime);
         TextView orderTimeTV = (TextView) view.findViewById(R.id.order_ordertime);
         TextView priceTV = (TextView) view.findViewById(R.id.order_price);
+        TextView reverseFieldTV = (TextView) view.findViewById(R.id.order_reversefield);
 
         gymNameTV.setText(orderInfo.getGymName());
         bookTimeTV.setText("预订时间： " + orderInfo.getBookTime());
         orderTimeTV.setText(orderInfo.getOrderTime() + " 下单");
         priceTV.setText("￥" + orderInfo.getPrice());
+        reverseFieldTV.setText("场地：" + orderInfo.getReverseField());
 
         return view;
     }

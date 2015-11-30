@@ -8,15 +8,25 @@ public class OrderInfo {
     private String gymName;
     private String bookTime;
     private String orderTime;
+    private int reverseField;
     private int status;
     private float price;
 
-    public OrderInfo(String gymName, String bookTime, String orderTime, int status, float  price) {
+    public OrderInfo(String gymName, int reverseField, String bookTime, String orderTime, int status, float  price) {
         this.gymName = gymName;
+        this.reverseField = reverseField;
         this.bookTime = bookTime;
         this.orderTime = orderTime;
         this.status = status;
         this.price = price;
+    }
+
+    public String getUser() {
+        return user;
+    }
+
+    public int getReverseField() {
+        return reverseField;
     }
 
     public String getGymName() {

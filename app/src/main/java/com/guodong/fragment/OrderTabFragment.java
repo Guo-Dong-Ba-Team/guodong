@@ -37,24 +37,22 @@ public class OrderTabFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         Bundle args = getArguments();
-        Log.d("YE","DEBUG1");
         url = args.getString("url", " ");
-        Log.d("YE","DEBUG2" + url);
         View view = inflater.inflate(R.layout.order_tab_fragment, container, false);
         listView = (ListView) view.findViewById(R.id.order_listview);
+        initOrderList();
         orderAdapter = new OrderAdapter(getActivity(), R.layout.order_item, orderInfoList);
 
-        initOrderList();
+
         listView.setAdapter(orderAdapter);
         return view;
     }
 
     private void initOrderList() {
-        orderInfoList.clear();
         requestQueue = Volley.newRequestQueue(getActivity());
         sendRequest(url, requestQueue);
 
-        //OrderInfo orderInfo = new OrderInfo("天河体育场","12月11日12:00", "12345", 1, 20);
+        //OrderInfo orderInfo = new OrderInfo("天河体育场", 12, "12月11日12:00", "12345", 1, 20);
         //orderInfoList.add(orderInfo);
         //orderInfoList.add(orderInfo);
         //orderInfoList.add(orderInfo);
@@ -70,6 +68,7 @@ public class OrderTabFragment extends Fragment {
                         try {
                             orderInfoList.clear();
                             orderInfoList.addAll(JsonParse.ParseorderInfos(response.toString()));
+                            Log.d("YE", "debug " + orderInfoList.size());
                             orderAdapter.notifyDataSetChanged();
                         } catch (JSONException e) {
                             e.printStackTrace();
