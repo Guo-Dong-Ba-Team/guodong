@@ -45,58 +45,17 @@ public class GymSelectActivity extends Activity
     int reserveField = -1;
     int status = -1;
 
-    public void setOrderState(int[] orderState)
-    {
-        this.orderState = orderState;
-    }
-
-    public float getPrice()
-    {
-        return price;
-    }
-
-    //由所有场地的状态得到当前预订的场地,生成订单信息
-    public int generateOrderInfo()
-    {
-        orderedPosition = new ArrayList<>();
-        if (orderState != null)
-        {
-            for (int i = 0; i < orderState.length; i++)
-            {
-                if (orderState[i] == 2)
-                {
-                    orderedPosition.add(i);
-                }
-            }
-        }
-
-        if (orderedPosition.size() == 0)
-        {
-            return 0;
-        }
-
-        //构造订单信息，一次下单的几个场地看作不同的订单
-        for (int i = 0; i < orderedPosition.size(); i++)
-        {
-            reserveHour = (orderedPosition.get(i) + 1) / 7 + 7;
-            reserveField = ((orderedPosition.get(i) + 1) % 7 + 6) % 7;
-            SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
-            orderTime = df.format(new Date());
-            status = 0;
-        }
-        return orderedPosition.size();
-    }
-
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
+
+        super.onCreate(savedInstanceState);
+
         Intent intent = getIntent();
         gymName = intent.getStringExtra("gym_name");
         openTime = intent.getStringExtra("open_time");
         fieldNum = intent.getIntExtra("field_num", 0);
         price = intent.getFloatExtra("price", 0.0f);
-
-        super.onCreate(savedInstanceState);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.activity_gym_select);
 
@@ -185,13 +144,11 @@ public class GymSelectActivity extends Activity
                         Toast.makeText(GymSelectActivity.this, "请至少选择一块场地", Toast.LENGTH_LONG).show();
                         return;
                     }
-
                     if (CalculateDayDiff(orderTime, reserveDayStr) > 7.0)
                     {
                         Toast.makeText(GymSelectActivity.this, "预定日期超过七天，请重新选择日期", Toast.LENGTH_LONG).show();
                         return;
                     }
-
                     if (CalculateDayDiff(orderTime, reserveDayStr) < 0.0)
                     {
                         Toast.makeText(GymSelectActivity.this, "预订日期已过，请重新选择日期", Toast.LENGTH_LONG).show();
@@ -204,15 +161,61 @@ public class GymSelectActivity extends Activity
                 }
             }
         });
-
-//        Bundle bundle = new Bundle();
-//        bundle.putFloat("price", price);
-//        GymSelectFragment gymSelectFragment = new GymSelectFragment();
-//        gymSelectFragment.setArguments(bundle);
-//
-//        getFragmentManager().beginTransaction().replace(R.id.gym_select_fragment, gymSelectFragment).commit();
-
     }
+
+    public void setOrderState(int[] orderState)
+    {
+        this.orderState = orderState;
+    }
+
+    public float getPrice()
+    {
+        return price;
+    }
+
+    public String getOpenTime()
+    {
+        return openTime;
+    }
+
+    public int getFieldNum()
+    {
+        return fieldNum;
+    }
+
+
+    //由所有场地的状态得到当前预订的场地,生成订单信息
+    public int generateOrderInfo()
+    {
+        orderedPosition = new ArrayList<>();
+        if (orderState != null)
+        {
+            for (int i = 0; i < orderState.length; i++)
+            {
+                if (orderState[i] == 2)
+                {
+                    orderedPosition.add(i);
+                }
+            }
+        }
+
+        if (orderedPosition.size() == 0)
+        {
+            return 0;
+        }
+
+        //构造订单信息，一次下单的几个场地看作不同的订单
+        for (int i = 0; i < orderedPosition.size(); i++)
+        {
+            reserveHour = (orderedPosition.get(i) + 1) / 7 + 7;
+            reserveField = ((orderedPosition.get(i) + 1) % 7 + 6) % 7;
+            SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+            orderTime = df.format(new Date());
+            status = 0;
+        }
+        return orderedPosition.size();
+    }
+
 
     double CalculateDayDiff(String orderTime, String reserveTime)
     {
