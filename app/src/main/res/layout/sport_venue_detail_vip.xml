@@ -2,16 +2,27 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
               android:layout_width="match_parent"
               android:layout_height="wrap_content"
+              android:background="#fff"
               android:orientation="vertical">
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:background="@android:color/darker_gray"/>
 
     <TextView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="30dp"
         android:gravity="center_vertical"
         android:layout_margin="5dip"
         android:textSize="18sp"
         android:text="会员月卡"
         />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:background="@android:color/darker_gray"/>
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -21,7 +32,7 @@
             android:id="@+id/tv_not_finish"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
+            android:layout_marginLeft="5dp"
             android:layout_centerVertical="true"
             android:textSize="15sp"
             android:text="与商家洽谈中"
@@ -57,5 +68,8 @@
             android:text="敬请期待"
             />
     </RelativeLayout>
-
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:background="@android:color/darker_gray"/>
 </LinearLayout>

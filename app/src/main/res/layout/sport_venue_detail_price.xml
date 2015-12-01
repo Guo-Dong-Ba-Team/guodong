@@ -2,16 +2,26 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
               android:layout_width="match_parent"
               android:layout_height="wrap_content"
+              android:background="#fff"
               android:orientation="vertical">
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:background="@android:color/darker_gray"/>
 
         <TextView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="30dp"
         android:gravity="center_vertical"
-        android:layout_margin="5dip"
         android:textSize="18sp"
+        android:layout_marginLeft="5dip"
         android:text="单次体验"
         />
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:background="@android:color/darker_gray"/>
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -22,7 +32,7 @@
             android:id="@+id/detail_single_price"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
+            android:layout_marginLeft="5dp"
             android:layout_centerVertical="true"
             android:textSize="15sp"
             android:text="20￥"
@@ -51,5 +61,10 @@
             android:text="立即预订"
             />
     </RelativeLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:background="@android:color/darker_gray"/>
 
 </LinearLayout>

@@ -2,6 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
               android:layout_width="match_parent"
               android:layout_height="match_parent"
+              android:background="#10bebebe"
               android:orientation="vertical">
 
     <TextView
@@ -20,33 +21,39 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+
             android:orientation="vertical">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:background="#fff"
                 android:orientation="horizontal">
+
                 <RelativeLayout
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="2">
+
                     <com.android.volley.toolbox.NetworkImageView
                         android:id="@+id/detail_show_image"
                         android:layout_width="match_parent"
                         android:layout_height="180dp"
                         android:padding="5dp"
                         android:scaleType="fitXY"/>
+
                     <TextView
                         android:id="@+id/detail_image_num"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="9"
                         android:layout_alignParentBottom="true"
                         android:layout_alignParentRight="true"
                         android:padding="5dp"
+                        android:text="9"
                         />
 
                 </RelativeLayout>
+
                 <LinearLayout
                     android:layout_width="0dip"
                     android:layout_height="wrap_content"
@@ -59,7 +66,6 @@
                         android:layout_height="0dp"
                         android:layout_marginLeft="5dip"
                         android:layout_weight="6"
-                        android:text="合肥奥体中心健身馆"
                         android:textColor="#0cf"
                         android:textSize="20dip"/>
 
@@ -71,7 +77,6 @@
                         android:layout_marginLeft="5dip"
                         android:layout_marginTop="20dp"
                         android:layout_weight="6"
-                        android:text="营业时间: 9:30-22:30"
                         android:textSize="12dip"/>
 
                     <TextView
@@ -91,8 +96,8 @@
                         android:layout_weight="6"
                         android:isIndicator="true"
                         android:numStars="5"
-                        android:rating="4"
                         android:progressTint="#ff8f00"
+                        android:rating="4"
                         android:stepSize="1"
                         />
                 </LinearLayout>
@@ -102,35 +107,39 @@
                 layout="@layout/sport_venue_detail_price"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"/>
+                android:layout_marginBottom="10dp"
+                android:layout_marginTop="10dp"
+                />
 
             <include
                 layout="@layout/sport_venue_detail_vip"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"/>
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"/>
 
             <include
                 layout="@layout/sport_venue_hardware_detail"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"/>
+                android:layout_marginBottom="10dp"/>
 
             <include
                 layout="@layout/sport_venue_detail_service"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"/>
+                android:layout_marginBottom="10dp"/>
 
             <include
                 layout="@layout/sport_venue_detail_telephone"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"/>
+                android:layout_marginBottom="10dp"/>
+
             <include
                 layout="@layout/sport_venue_detail_address"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"/>
+                android:layout_marginBottom="10dp"/>
 
 
         </LinearLayout>
