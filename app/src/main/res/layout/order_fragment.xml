@@ -33,7 +33,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1.0"
             android:gravity="center"
-            android:text="已完成"
+            android:text="已消费"
             android:textSize="18sp"/>
 
         <TextView
@@ -51,7 +51,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:scaleType="matrix"
-        android:padding="2dp"
+        android:padding="1dp"
         android:src="@drawable/cursor"/>
 
     <android.support.v4.view.ViewPager
