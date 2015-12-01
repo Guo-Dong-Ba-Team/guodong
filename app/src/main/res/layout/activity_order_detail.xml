@@ -11,7 +11,7 @@
         android:layout_height="45dp"
         android:background="#99CCFF"
         android:gravity="center"
-        android:text="订单详情"
+        android:text="订单确认"
         android:textSize="17sp"
         android:textColor="#FFFFFF"
         />
