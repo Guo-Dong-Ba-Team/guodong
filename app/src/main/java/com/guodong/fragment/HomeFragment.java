@@ -158,7 +158,7 @@ public class HomeFragment extends Fragment {
         } else if (providerList.contains(LocationManager.NETWORK_PROVIDER)) {
             provider = LocationManager.NETWORK_PROVIDER;
         } else {
-            Toast.makeText(getActivity(), "没有可用的位置提供器",Toast.LENGTH_SHORT).show();
+            Toast.makeText(getActivity(), "GPS未检测到，为了更好地定位场馆，请打开GPS",Toast.LENGTH_SHORT).show();
             return;
         }
         Location myLocation = locationManager.getLastKnownLocation(provider);
