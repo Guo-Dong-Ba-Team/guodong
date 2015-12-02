@@ -11,6 +11,7 @@ public class OrderInfo {
     private int reverseField;
     private int status;
     private float price;
+    private long orderId;
 
     public OrderInfo(String gymName, int reverseField, String bookTime, String orderTime, int status, float  price) {
         this.gymName = gymName;
@@ -47,6 +48,10 @@ public class OrderInfo {
 
     public float getPrice() {
         return price;
+    }
+
+    public long getOrderId() {
+        return orderId;
     }
 }
 

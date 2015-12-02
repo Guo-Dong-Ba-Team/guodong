@@ -3,9 +3,13 @@ package com.guodong.fragment;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.util.Log;
+import android.view.ContextMenu;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ListView;
 
 import com.android.volley.RequestQueue;
@@ -30,20 +34,31 @@ import java.util.List;
 public class OrderTabFragment extends Fragment {
     private ListView listView;
     private List<OrderInfo> orderInfoList = new ArrayList<>();
+    private List<OrderInfo> orderInfoList1 = new ArrayList<>();
     private OrderAdapter orderAdapter;
     private String url;
+    private int orderStatus;
     private RequestQueue requestQueue;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         Bundle args = getArguments();
         url = args.getString("url", " ");
+        orderStatus = args.getInt("status");
         View view = inflater.inflate(R.layout.order_tab_fragment, container, false);
         listView = (ListView) view.findViewById(R.id.order_listview);
         initOrderList();
+        if (orderStatus == 1) {
+            listView.setOnCreateContextMenuListener(new View.OnCreateContextMenuListener() {
+                @Override
+                public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
+                    AdapterView.AdapterContextMenuInfo adapterContextMenuInfo = (AdapterView.AdapterContextMenuInfo) menuInfo;
+                    menu.setHeaderTitle("确定取消订单？");
+                    menu.add(0, 1, Menu.NONE, "确定");
+                }
+            });
+        }
         orderAdapter = new OrderAdapter(getActivity(), R.layout.order_item, orderInfoList);
-
-
         listView.setAdapter(orderAdapter);
         return view;
     }
@@ -67,8 +82,13 @@ public class OrderTabFragment extends Fragment {
                     public void onResponse(JSONObject response) {
                         try {
                             orderInfoList.clear();
+                            Log.d("YE", "orderStatus " + orderStatus);
                             orderInfoList.addAll(JsonParse.ParseorderInfos(response.toString()));
-                            Log.d("YE", "debug " + orderInfoList.size());
+                            if (orderStatus == 1) {
+                                orderInfoList1.clear();
+                                orderInfoList1.addAll(orderInfoList);
+                            }
+                            Log.d("YE", "orderInfoList " + orderInfoList.size());
                             orderAdapter.notifyDataSetChanged();
                         } catch (JSONException e) {
                             e.printStackTrace();
@@ -81,5 +101,23 @@ public class OrderTabFragment extends Fragment {
             }
         });
         requestQueue.add(jsonObjectRequest);
+    }
+
+    @Override
+    public boolean onContextItemSelected(MenuItem item) {
+        if (orderStatus == 1) {
+            AdapterView.AdapterContextMenuInfo menuInfo = (AdapterView.AdapterContextMenuInfo) item.getMenuInfo();
+            int position = menuInfo.position;
+            Log.d("YE", "orderStatus2 " + orderStatus);
+            Log.d("YE", "orderInfoList2 " + orderInfoList1.size());
+            OrderInfo orderInfo = orderInfoList1.get(position);
+            switch (item.getItemId()) {
+                case 1:
+
+                    break;
+            }
+        }
+            return false;
+
     }
 }

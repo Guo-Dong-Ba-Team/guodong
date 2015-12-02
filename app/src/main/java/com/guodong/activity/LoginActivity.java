@@ -42,6 +42,7 @@ public class LoginActivity extends Activity
 
     private String phone;
     private String password;
+    private boolean isRemember;
 
     Handler handler = new Handler()
     {
@@ -89,9 +90,15 @@ public class LoginActivity extends Activity
         globalData = (GlobalData) getApplicationContext();
 
         phone = pref.getString("account", "");
+        isRemember = pref.getBoolean("remember_password", false);
         if (phone != "")
         {
             loginPhone.setText(phone);
+        }
+        if (isRemember) {
+            password = pref.getString("password", "");
+            et_password.setText(password);
+            rememberPass.setChecked(true);
         }
     }
 
@@ -183,13 +190,20 @@ public class LoginActivity extends Activity
                     globalData.setIsLogin(true);
                     globalData.setLoginAccount(loginPhone);
                     globalData.setPassword(userPass);
+                    if (rememberPass.isChecked()) {
+                        globalData.setIsRemember(true);
+                    }
                     editor = pref.edit();
                     editor.clear();
                     editor.commit();
                     editor.putBoolean("islogin", true);
                     editor.putString("account", loginPhone);
                     editor.putString("password", userPass);
-
+                    if (rememberPass.isChecked()) {
+                        editor.putBoolean("remember_password", true);
+                    } else {
+                        editor.putBoolean("remember_password", false);
+                    }
                     editor.commit();
 
                     MainActivity.actionStart(LoginActivity.this, 3);

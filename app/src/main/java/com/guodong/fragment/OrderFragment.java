@@ -98,18 +98,21 @@ public class OrderFragment extends Fragment {
 
     private void initViewPager() {
         viewPager = (ViewPager) orderView.findViewById(R.id.order_viewpager);
-        fragmentArrayList = new ArrayList<Fragment>();
+        fragmentArrayList = new ArrayList<>();
         Fragment fragment1 = new OrderTabFragment();
         Bundle args1 = new Bundle();
         args1.putString("url", "http://182.61.8.185:8080/order_info?user=" +globalData.getLoginAccount() + "&status=1");
+        args1.putInt("status", 1);
         fragment1.setArguments(args1);
         Fragment fragment2 = new OrderTabFragment();
         Bundle args2 = new Bundle();
         args2.putString("url", "http://182.61.8.185:8080/order_info?user=" +globalData.getLoginAccount() + "&status=2");
+        args2.putInt("status",2);
         fragment2.setArguments(args2);
         Fragment fragment3 = new OrderTabFragment();
         Bundle args3 = new Bundle();
         args3.putString("url", "http://182.61.8.185:8080/order_info?user=" +globalData.getLoginAccount() + "&status=3");
+        args3.putInt("status",3);
         fragment3.setArguments(args3);
         fragmentArrayList.add(fragment1);
         fragmentArrayList.add(fragment2);

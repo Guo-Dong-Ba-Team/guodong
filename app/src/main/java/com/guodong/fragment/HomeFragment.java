@@ -151,6 +151,7 @@ public class HomeFragment extends Fragment {
     }
 
     private void locateCurrentPosition() {
+        globalData = (GlobalData) getActivity().getApplicationContext();
         locationManager = (LocationManager) getActivity().getSystemService(getActivity().LOCATION_SERVICE);
         List<String> providerList = locationManager.getProviders(true);
         if (providerList.contains(LocationManager.GPS_PROVIDER)) {
@@ -158,7 +159,10 @@ public class HomeFragment extends Fragment {
         } else if (providerList.contains(LocationManager.NETWORK_PROVIDER)) {
             provider = LocationManager.NETWORK_PROVIDER;
         } else {
-            Toast.makeText(getActivity(), "GPS未检测到，为了更好地定位场馆，请打开GPS",Toast.LENGTH_SHORT).show();
+            if (globalData.getLocateNum() == 0) {
+                Toast.makeText(getActivity(), "GPS未检测到，为了更好地定位场馆，请打开GPS", Toast.LENGTH_SHORT).show();
+                globalData.setLocateNum(1);
+            }
             return;
         }
         Location myLocation = locationManager.getLastKnownLocation(provider);
@@ -166,7 +170,6 @@ public class HomeFragment extends Fragment {
             longitude = myLocation.getLongitude();
             latitude = myLocation.getLatitude();
             //经纬度保存到全局变量中
-            globalData = (GlobalData) getActivity().getApplicationContext();
             globalData.setMyLongitude(longitude);
             globalData.setMyLatitude(latitude);
         }

@@ -9,17 +9,21 @@ import android.content.SharedPreferences;
  */
 public class GlobalData extends Application {
     private boolean isLogin;
+    private boolean isRemember;
     private String loginAccount;
     private String password;
     private double myLongitude = 0;
     private double myLatitude = 0;
     private static Context context;
+    private int locateNum;
 
 
     @Override
     public void onCreate() {
 
         context = getApplicationContext();
+        locateNum =0;
+
         //读取登陆的用户信息
         SharedPreferences pref = getSharedPreferences("loginID", MODE_PRIVATE);
         loginAccount = pref.getString("account", "");
@@ -71,5 +75,21 @@ public class GlobalData extends Application {
 
     public void setMyLatitude(double myLatitude) {
         this.myLatitude = myLatitude;
+    }
+
+    public int getLocateNum() {
+        return locateNum;
+    }
+
+    public void setLocateNum(int locateNum) {
+        this.locateNum = locateNum;
+    }
+
+    public boolean isRemember() {
+        return isRemember;
+    }
+
+    public void setIsRemember(boolean isRemember) {
+        this.isRemember = isRemember;
     }
 }
