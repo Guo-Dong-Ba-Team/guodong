@@ -37,6 +37,7 @@ public class SportVenueDetailActivity extends Activity
     private Button btnOrderNow;
     private TextView gymNameTextview;
     private TextView openTimeTextview;
+    private TextView ratingTexview;
     private RatingBar ratingBar;
     private TextView singlePriceTextview;
     private TextView vipPriceTextview;
@@ -72,19 +73,21 @@ public class SportVenueDetailActivity extends Activity
                             Log.d("YE","debug");
                             gymDetail = JsonParse.ParseDetailGymInfo(response.toString(), gymId);
                             Log.d("YE",gymDetail.getName());
-                            Log.d("YE",gymDetail.getGymImageUrl()[0]);
+                            Log.d("YE", gymDetail.getGymImageUrl()[0]);
 
                             //显示图片数
                             Log.d("YE","debug 2");
                             textView.setText("" + gymDetail.getGymImageUrl().length);
 
                             //显示封面图片
-                            Log.d("YE","debug 3");
+                            Log.d("YE", "debug 3");
                             Traffic.showNetworkImage(requestQueue, gymDetail.getGymImageUrl()[0], imageView);
 
 
                             gymNameTextview.setText(gymDetail.getName());
                             openTimeTextview.setText("营业时间: " + gymDetail.getOpen_time());
+                            ratingTexview.setText("用户评分："+gymDetail.getStar_level());
+
                             ratingBar.setRating(gymDetail.getStar_level());
                             singlePriceTextview.setText("￥" + gymDetail.getSingle_price());
 //                            vipPriceTextview.setText("￥" + gymDetail.getVip_price());
@@ -135,6 +138,7 @@ public class SportVenueDetailActivity extends Activity
         btnVipBuy = (Button) findViewById(R.id.btn_vip_buy);
         gymNameTextview = (TextView) findViewById(R.id.detail_gym_name);
         openTimeTextview = (TextView) findViewById(R.id.detail_open_time);
+        ratingTexview = (TextView) findViewById(R.id.ratingTextview);
         ratingBar = (RatingBar) findViewById(R.id.detail_rating);
         singlePriceTextview = (TextView) findViewById(R.id.detail_single_price);
        // vipPriceTextview = (TextView) findViewById(R.id.detail_vip_price);

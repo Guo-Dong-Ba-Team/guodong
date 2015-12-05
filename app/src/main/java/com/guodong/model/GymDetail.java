@@ -1,5 +1,7 @@
 package com.guodong.model;
 
+import java.text.DecimalFormat;
+
 /**
  * Created by ustc on 2015/10/21.
  */
@@ -95,7 +97,7 @@ public class GymDetail
     }
 
     public float getStar_level() {
-        return star_level;
+        return Float.parseFloat(new DecimalFormat("#.#").format(star_level));
     }
 
 

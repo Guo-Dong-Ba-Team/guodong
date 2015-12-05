@@ -109,9 +109,11 @@ public class LoginActivity extends Activity
         if ("".equals(phone.trim()) || "".equals(password.trim()))
         {
             Toast.makeText(mContext, "手机号或密码为空...", Toast.LENGTH_SHORT).show();
+            return;
         } else if (phone.trim().length() != 11 || password.trim().length() > 16)
         {
             Toast.makeText(mContext, "手机号或密码格式错误", Toast.LENGTH_SHORT).show();
+            return;
         } else
         {
             Dialog = new ProgressDialog(LoginActivity.this);
