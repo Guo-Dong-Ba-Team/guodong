@@ -182,13 +182,15 @@ public class HomeFragment extends Fragment {
         //创建广告页
         List<View> adsImageList = new ArrayList<View>();
         NetworkImageView ads1 = new NetworkImageView(getActivity());
-
+        ads1.setScaleType(ImageView.ScaleType.FIT_XY);
         ads1.setBackgroundColor(Color.TRANSPARENT);
         adsImageList.add(ads1);
         NetworkImageView ads2 = new NetworkImageView(getActivity());
+        ads2.setScaleType(ImageView.ScaleType.FIT_XY);
         ads2.setBackgroundColor(Color.TRANSPARENT);
         adsImageList.add(ads2);
         NetworkImageView ads3 = new NetworkImageView(getActivity());
+        ads3.setScaleType(ImageView.ScaleType.FIT_XY);
         ads3.setBackgroundColor(Color.TRANSPARENT);
         adsImageList.add(ads3);
         //从服务器加载广告图片并显示
