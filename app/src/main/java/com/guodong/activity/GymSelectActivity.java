@@ -563,7 +563,7 @@ public class GymSelectActivity extends Activity
                 case -1:
                 {
                     theClass.Dialog.dismiss();
-                    Toast.makeText(theClass, "服务器连接出错，请稍后再试", Toast.LENGTH_LONG).show();
+              //      Toast.makeText(theClass, "服务器连接出错，请稍后再试", Toast.LENGTH_LONG).show();
                     break;
                 }
                 default:

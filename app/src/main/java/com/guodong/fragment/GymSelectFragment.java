@@ -86,7 +86,7 @@ public class GymSelectFragment extends Fragment
         t.setToNow();
         nowDay = t.monthDay;
         nowHour = t.hour;
-        Toast.makeText(getActivity(), "now hour:" + nowHour, Toast.LENGTH_LONG).show();
+//        Toast.makeText(getActivity(), "now hour:" + nowHour, Toast.LENGTH_LONG).show();
 
         int reserveMonthDay = Integer.parseInt(reserveDay.substring(8));
         for (int i = 0; i < orderState.length; i++)

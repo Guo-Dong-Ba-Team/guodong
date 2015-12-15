@@ -151,11 +151,19 @@ public class OrderDetailActivity extends Activity
                     Dialog.setMessage("正在等待商家审核，请稍候...");
                     Dialog.show();
 
+
                     //发送数据到服务器
                     new Thread()
                     {
                         public void run()
                         {
+                            for (int i = 0; i < 10000; i++)
+                            {
+                                for (int j = 0; j < 100000; j++)
+                                {
+
+                                }
+                            }
                             //获取用户手机号
                             final String loginPhone = globalData.getLoginAccount();
                             UploadOrderInfo(loginPhone, gymName, status, orderTime, reserveDay, reserveHour, reserveField, price);

@@ -86,9 +86,15 @@ public class SportVenueDetailActivity extends Activity
 
                             gymNameTextview.setText(gymDetail.getName());
                             openTimeTextview.setText("营业时间: " + gymDetail.getOpen_time());
-                            ratingTexview.setText("用户评分："+gymDetail.getStar_level());
+                            float star = gymDetail.getStar_level();
+                            if (star == 0)
+                            {
+                                star = 5;
+                            }
 
-                            ratingBar.setRating(gymDetail.getStar_level());
+                            ratingTexview.setText("用户评分："+ String.valueOf(star));
+                            ratingBar.setRating(star);
+
                             singlePriceTextview.setText("￥" + gymDetail.getSingle_price());
 //                            vipPriceTextview.setText("￥" + gymDetail.getVip_price());
                             facilityTextview.setText(gymDetail.getHardware());
