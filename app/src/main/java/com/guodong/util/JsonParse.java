@@ -114,7 +114,7 @@ public class JsonParse
             stringBuilder.append(gymId).append("/");
             imageUrlArray[j] = stringBuilder.append(imageUrlJson.getString(j)).toString();
         }
-        float single_price = gymDetailInfoJson.getInt(GYM_SINGLE_PRICE);
+        float single_price = (float) gymDetailInfoJson.getDouble(GYM_SINGLE_PRICE);
         float vip_price = gymDetailInfoJson.getInt(GYM_VIP_PRICE);
         float discount = (float) gymDetailInfoJson.getDouble(GYM_DISCOUNT);
         String address_city = gymDetailInfoJson.getString(GYM_ADDRESS_CITY);

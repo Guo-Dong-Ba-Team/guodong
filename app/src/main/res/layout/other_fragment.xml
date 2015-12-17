@@ -10,6 +10,6 @@
         android:layout_gravity="center"
         android:text="敬请期待"
         android:textSize="40sp"
-        android:textColor="@color/highlighted_text_material_light"/>
+        android:textColor="#63ccff"/>
 
 </LinearLayout>

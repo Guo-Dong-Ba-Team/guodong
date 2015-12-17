@@ -148,7 +148,7 @@ public class OrderFragment extends Fragment {
                 if (i != position) {
                     textViewList.get(i).setTextColor(Color.GRAY);
                 }
-                textViewList.get(position).setTextColor(Color.RED);
+                textViewList.get(position).setTextColor(0xff63ccff);
 
             }
         }

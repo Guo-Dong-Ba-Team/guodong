@@ -172,6 +172,7 @@ public class HomeFragment extends Fragment {
             //经纬度保存到全局变量中
             globalData.setMyLongitude(longitude);
             globalData.setMyLatitude(latitude);
+            Toast.makeText(getActivity(), "long:"+Double.valueOf(longitude)+"lat:"+Double.valueOf(latitude), Toast.LENGTH_SHORT).show();
         }
     }
 

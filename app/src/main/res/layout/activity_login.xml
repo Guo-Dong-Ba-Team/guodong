@@ -11,7 +11,7 @@
         android:layout_width="100dp"
         android:background="@drawable/login_picture_bg"
         android:contentDescription="@string/app_name"
-        android:src="@mipmap/login_photo"
+        android:src="@drawable/logo"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="100dp"/>
     <RelativeLayout
