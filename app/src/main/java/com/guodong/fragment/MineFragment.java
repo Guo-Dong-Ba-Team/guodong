@@ -40,7 +40,7 @@ public class MineFragment extends Fragment implements View.OnClickListener {
     GlobalData globalData;
     private TextView checkUpdateBtn;
     private UpdateInfo info;
-    private String localVersion;
+    private int localVersionCode;
     private final int UPDATE_NONEED = 0;
     private final int UPDATE_CLIENT = 1;
     private final int GET_UPDATEINFO_ERROR = 2;
@@ -66,7 +66,8 @@ public class MineFragment extends Fragment implements View.OnClickListener {
         collectBtn.setOnClickListener(this);
         checkUpdateBtn.setOnClickListener(this);
         try {
-            Log.d("YE",getVersionName());
+            Log.d("YE","verCode " +getVerCode());
+            Log.d("YE","verName " +getVerName());
         } catch (Exception e) {
             Log.d("YE","error");
             e.printStackTrace();
@@ -93,7 +94,7 @@ public class MineFragment extends Fragment implements View.OnClickListener {
                     break;
                 case R.id.check_update_btn:
                     try{
-                        localVersion = getVersionName();
+                        localVersionCode = getVerCode();
                         CheckVersionTask cv = new CheckVersionTask();
                         new Thread(cv).start();
                     } catch (Exception e) {
@@ -103,12 +104,20 @@ public class MineFragment extends Fragment implements View.OnClickListener {
             }
     }
 
-    public String getVersionName() throws Exception {
+    public int getVerCode() throws Exception {
+
+        PackageManager packageManager = getActivity().getPackageManager();
+        PackageInfo packageInfo = packageManager.getPackageInfo(getActivity().getPackageName(), 0);
+        return packageInfo.versionCode;
+    }
+
+    public String getVerName() throws Exception {
 
         PackageManager packageManager = getActivity().getPackageManager();
         PackageInfo packageInfo = packageManager.getPackageInfo(getActivity().getPackageName(), 0);
         return packageInfo.versionName;
     }
+
 
     public class CheckVersionTask implements Runnable {
         InputStream is;
@@ -127,7 +136,7 @@ public class MineFragment extends Fragment implements View.OnClickListener {
                     is = connection.getInputStream();
                 }
                 info = UpdateInfoParse.getUpdateInfo(is);
-                if (info.getVersion().equals(localVersion)) {
+                if (info.getVersionCode() <= localVersionCode) {
                     Log.i(TAG, "版本号相同");
                     Message msg = new Message();
                     msg.what = UPDATE_NONEED;

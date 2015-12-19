@@ -20,8 +20,8 @@ public class UpdateInfoParse {
         while(type != XmlPullParser.END_DOCUMENT ){
             switch (type) {
                 case XmlPullParser.START_TAG:
-                    if("version".equals(parser.getName())){
-                        info.setVersion(parser.nextText());
+                    if("versionCode".equals(parser.getName())){
+                        info.setVersionCode(Integer.parseInt(parser.nextText()));
                     }else if ("url".equals(parser.getName())){
                         info.setUrl(parser.nextText());
                     }else if ("description".equals(parser.getName())){

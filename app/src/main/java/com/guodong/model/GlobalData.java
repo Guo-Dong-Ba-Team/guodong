@@ -12,8 +12,8 @@ public class GlobalData extends Application {
     private boolean isRemember;
     private String loginAccount;
     private String password;
-    private double myLongitude = 0;
-    private double myLatitude = 0;
+    private double myLongitude = 117.2725370000;
+    private double myLatitude = 31.8407550000;
     private static Context context;
     private int locateNum;
 

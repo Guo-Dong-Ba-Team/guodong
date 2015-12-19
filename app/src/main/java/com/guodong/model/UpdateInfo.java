@@ -4,17 +4,26 @@ package com.guodong.model;
  * Created by yechy on 2015/12/10.
  */
 public class UpdateInfo {
-    private String version;
+    private String versionName;
+    private int versionCode;
     private String url;
     private String description;
     private String url_server;
 
-    public String getVersion() {
-        return version;
+    public String getVersionName() {
+        return versionName;
     }
 
-    public void setVersion(String version) {
-        this.version = version;
+    public int getVersionCode() {
+        return versionCode;
+    }
+
+    public void setVersionCode(int versionCode) {
+        this.versionCode = versionCode;
+    }
+
+    public void setVersionName(String versionName) {
+        this.versionName = versionName;
     }
 
     public String getUrl() {
