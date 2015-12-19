@@ -3,7 +3,7 @@ package com.guodong.model;
 /**
  * Created by yechy on 2015/9/20.
  */
-public class Gym {
+public class Gym implements Comparable {
     private String gymName;
     private float price;
     private float distance;
@@ -46,5 +46,17 @@ public class Gym {
 
     public int getGymId() {
         return gymId;
+    }
+
+    @Override
+    public int compareTo(Object o) {
+        Gym anotherGym = (Gym) o;
+        if(this.distance > anotherGym.getDistance()) {
+            return 1;
+        } else if (this.distance < anotherGym.getDistance()) {
+            return -1;
+        } else {
+            return 0;
+        }
     }
 }

@@ -16,6 +16,7 @@ import com.android.volley.toolbox.Volley;
 import com.guodong.R;
 import com.guodong.model.Gym;
 
+import java.text.DecimalFormat;
 import java.util.List;
 
 /**
@@ -56,7 +57,11 @@ public class GymAdapter extends ArrayAdapter<Gym> {
         }
         gymName.setText(gym.getGymName());
         price.setText("￥" + gym.getPrice() + "起");
-        distance.setText(gym.getDistance() + "km");
+        if(gym.getDistance() > 1) {
+            distance.setText(new DecimalFormat("#.##").format(gym.getDistance()) + "km");
+        } else {
+            distance.setText(new DecimalFormat("#").format(gym.getDistance() * 1000.0) + "m");
+        }
 
         return view;
     }

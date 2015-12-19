@@ -10,6 +10,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 
@@ -89,7 +90,7 @@ public class JsonParse
 
             gymBriefs.add(new Gym(name, gymId, single_price, distance, mainImageUrl));
         }
-
+        Collections.sort(gymBriefs);
         return gymBriefs;
     }
     //Json parsing function for brief information of gyms
